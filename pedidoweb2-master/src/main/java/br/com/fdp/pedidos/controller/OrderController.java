@@ -53,6 +53,7 @@ public class OrderController {
 
 	public void save() {
 		orderRepository.save(getOrder());
+		System.out.println("salvo");
 		if (!isModoEdicao())
 			orders.add(order);
 		order = new Order();

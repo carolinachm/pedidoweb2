@@ -65,6 +65,13 @@
 				<h:outputText id="valorStatus"
 					value="#{u.ativo ? 'Ativo' : 'Inativo'}" />
 			</h:column>
+			
+			<h:column id="columnPerfil">
+				<f:facet name="header">
+					<h:outputText id="headerPerfil" value="Perfil" />
+				</f:facet>
+				<h:outputText id="valorPerfil" value="#{u.perfil}" />
+			</h:column>
 
 			<h:column>
 				<f:facet name="header">Ação</f:facet>
