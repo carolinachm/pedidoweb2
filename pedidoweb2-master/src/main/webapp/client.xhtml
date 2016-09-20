@@ -37,8 +37,8 @@
 					<f:convertDateTime pattern="yyyy-MM-dd" />
 				</h:inputText>
 				<h:outputText id="emailLabel" value="Email:" />
-				<h:inputText type="email" jsf:id="email"
-					jsf:value="#{clientController.client.email}" />
+				<h:inputText id="email" p:type="email"
+					value="#{clientController.client.email}" />
 
 				<h:outputText id="logradouroLabel" value="Logradouro:" />
 				<h:inputText id="logradouro" label="Logradoruro"
@@ -55,8 +55,8 @@
 					maxlength="50" />
 
 				<h:outputText id="numeroLabel" value="Numero:" />
-				<h:inputText jsf:id="number" type="number" min="1" max="10"
-					jsf:value="#{clientController.client.adress.numero}">
+				<h:inputText id="number" p:type="number" p:min="1" p:max="10"
+					value="#{clientController.client.address.numero}">
 					<f:convertNumber minFractionDigits="0" />
 				</h:inputText>
 
