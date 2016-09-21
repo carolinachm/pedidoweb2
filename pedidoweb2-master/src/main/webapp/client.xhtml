@@ -85,9 +85,10 @@
 				<f:ajax render="formulario"></f:ajax>
 			</h:commandButton>
 			<h:messages id="msg" />
+			
 			<h:dataTable id="tabela" value="#{clientController.clients}" var="c"
 				cellpadding="5" cellspacing="3" first="0" rows="5" frame="hsides"
-				rules="all" style="width: 100%" border="10">
+				rules="all" style="width: 100%" border="10" class="bordered">
 
 				<f:facet name="header">
 					<h:outputText value="Clientes" />
