@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <ui:composition template="/template.xhtml">
 	<ui:define name="menu">
@@ -30,14 +32,13 @@
 					value="#{clientController.client.telefone}" maxlength="50" />
 
 				<h:outputText id="nascimentoLabel" value="Data de Nascimento:" />
-				<h:inputText id="nascimento" label="Data de Nascimento"
-					value="#{clientController.client.dataNascimento}" maxlength="10">
-					<f:convertDateTime id="padraoData" pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
+				<h:inputText id="nascimento" p:type="date"
+					value="#{clientController.client.dataNascimento}">
+					<f:convertDateTime pattern="yyyy-MM-dd" />
 				</h:inputText>
 				<h:outputText id="emailLabel" value="Email:" />
-				<h:inputText id="email" label="Email"
-					value="#{clientController.client.email}" maxlength="50" />
+				<h:inputText id="email" p:type="email"
+					value="#{clientController.client.email}" />
 
 				<h:outputText id="logradouroLabel" value="Logradouro:" />
 				<h:inputText id="logradouro" label="Logradoruro"
@@ -54,9 +55,10 @@
 					maxlength="50" />
 
 				<h:outputText id="numeroLabel" value="Numero:" />
-				<h:inputText id="numero" label="Numero"
-					value="#{clientController.client.address.numero}" maxlength="50" />
-
+				<h:inputText id="number" p:type="number" p:min="1" p:max="10"
+					value="#{clientController.client.address.numero}">
+					<f:convertNumber minFractionDigits="0" />
+				</h:inputText>
 
 				<h:outputText id="cepLabel" value="Cep:" />
 				<h:inputText id="cep" label="Cep"
@@ -64,7 +66,7 @@
 
 				<h:outputLabel for="estado" value="Estado:" />
 				<h:selectOneMenu id="estado" filter="true"
-					value="#{clientController.client.state}"
+					value="#{clientController.client.state}" class="input-field col s12"
 					converter="#{stateConverter}" required="true"
 					requiredMessage="O campo 'Estado' é obrigatório">
 					<f:selectItem noSelectionOption="true"
@@ -75,7 +77,7 @@
 
 			</h:panelGrid>
 			<h:commandButton action="#{clientController.save}" value="Salvar">
-				<f:ajax execute="formulario" render="tabela"></f:ajax>
+				<f:ajax execute="formulario" render="formulario"></f:ajax>
 			</h:commandButton>
 
 			<h:commandButton rendered="#{clientController.modoEdicao}"
@@ -83,9 +85,10 @@
 				<f:ajax render="formulario"></f:ajax>
 			</h:commandButton>
 			<h:messages id="msg" />
+			
 			<h:dataTable id="tabela" value="#{clientController.clients}" var="c"
 				cellpadding="5" cellspacing="3" first="0" rows="5" frame="hsides"
-				rules="all" style="width: 100%" border="10">
+				rules="all" style="width: 100%" border="10" class="centered">
 
 				<f:facet name="header">
 					<h:outputText value="Clientes" />
