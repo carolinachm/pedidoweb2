@@ -33,7 +33,7 @@
 		</h:panelGrid>
 		<h:panelGrid columns="2">
 			<h:commandButton action="#{productController.save}" value="Salvar" class="btn waves-effect waves-light">
-				<f:ajax execute="formulario" render="formulario:tabela" ></f:ajax>
+				<f:ajax execute="formulario" render="dados tabela" ></f:ajax>
 			</h:commandButton>
 
 			<h:commandButton rendered="#{productController.modoEdicao}"

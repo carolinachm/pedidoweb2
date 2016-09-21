@@ -28,7 +28,7 @@
 		</h:panelGrid>
 		<h:panelGrid columns="2">
 			<h:commandButton action="#{packageController.save}" value="Salvar">
-				<f:ajax execute="formulario" render="formulario"></f:ajax>
+				<f:ajax execute="formulario" render="dados tabela"></f:ajax>
 			</h:commandButton>
 
 			<h:commandButton rendered="#{packageController.modoEdicao}"
@@ -75,7 +75,7 @@
 				</h:commandButton>
 
 				<h:commandButton action="#{packageController.editar(e)}" value="Editar">
-					<f:ajax render="formulario" />
+					<f:ajax render="dados"  />
 				</h:commandButton>
 
 			</h:column>

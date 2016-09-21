@@ -75,7 +75,7 @@
 
 			</h:panelGrid>
 			<h:commandButton action="#{orderController.save}" value="Salvar">
-				<f:ajax execute="formulario" render="formulario"></f:ajax>
+				<f:ajax execute="formulario" render="dados tabela"></f:ajax>
 			</h:commandButton>
 
 			<h:commandButton rendered="#{orderController.modoEdicao}"
@@ -122,12 +122,12 @@
 					<f:facet name="header">Ação</f:facet>
 					<h:commandButton action="#{orderController.remove(o)}"
 						value="Excluir" onclick="return window.confirm('Certeza?')">
-						<f:ajax render="formulario:tabela" />
+						<f:ajax render="tabela" />
 					</h:commandButton>
 
 					<h:commandButton action="#{orderController.editar(o)}"
 						value="Editar">
-						<f:ajax render="formulario" />
+						<f:ajax render="dados tabela" />
 					</h:commandButton>
 				</h:column>
 			</h:dataTable>
