@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/template.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<div class="col-md-8">
+		<h1>Crie sua conta do MyImage.com!</h1>
+		<p>Criando sua conta no MyImage.com você poderá publicar suas
+			imagens para o mundo.</p>
+		<br />
+		<h:form class="col s12" role="form">
+
+			<div class="row">
+					<h:outputLabel for="inputfirstdescricao" value="Descrição"
+						styleClass="col-sm-3 control-label" />
+					<div class="input-field col s6">
+						<h:inputText value="#{packageController.embrulho.descricao}"
+							class="form-control" id="inputfirstname"
+							pt:placeholder="Digite aqui seu primeiro nome entre 2 e 30 caracteres"
+							required="true"
+							validatorMessage="primeiro nome deve conter entre 2 e 30 caracteres."
+							requiredMessage="é necessário que você informe seu primeiro nome.">
+							<f:validateLength minimum="2" maximum="30" />
+							<f:ajax event="blur" render="m_inputfirstname" />
+						</h:inputText>
+						<h:message id="m_inputfirstdescricao" for="inputfirstdescricao"
+							style="color:#D74937;" />
+					</div>
+			</div>
+			<div class="row">
+				<h:outputLabel for="inputlastvalor" value="Valor"
+					styleClass="col-sm-3 control-label" />
+				<div class="input-field col s6">
+					<h:inputText id="valor" label="Valor:"
+						value="#{packageController.embrulho.valorPackage}" maxlength="50">
+						<f:convertNumber minFractionDigits="2" />
+					</h:inputText>
+					<h:message id="m_inputlastvalor" for="inputlastvalor"
+						style="color:#D74937;" />
+				</div>
+			
+			</div>
+
+
+			<div class="row">
+				<div class="fixed-action-btn">
+					<h:panelGrid columns="2">
+						<h:commandButton action="#{packageController.save}" value="Salvar" class="btn waves-effect waves-light">
+							<f:ajax execute="formulario" render="dados tabela"></f:ajax>
+						</h:commandButton>
+
+						<h:commandButton rendered="#{packageController.modoEdicao}"
+							action="#{embrulhoController.cancelar}" value="Cancelar" class="btn-large disabled">
+							<f:ajax render="formulario"></f:ajax>
+						</h:commandButton>
+					</h:panelGrid>
+				</div>
+			</div>
+			
+			</h:form>
+			</div>
+</ui:composition>

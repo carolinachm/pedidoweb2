@@ -122,12 +122,12 @@
 					<f:facet name="header">Ação</f:facet>
 					<h:commandButton action="#{orderController.remove(o)}"
 						value="Excluir" onclick="return window.confirm('Certeza?')">
-						<f:ajax render="tabela" />
+						<f:ajax render="@form" />
 					</h:commandButton>
 
 					<h:commandButton action="#{orderController.editar(o)}"
 						value="Editar">
-						<f:ajax render="dados tabela" />
+						<f:ajax render="@form" />
 					</h:commandButton>
 				</h:column>
 			</h:dataTable>

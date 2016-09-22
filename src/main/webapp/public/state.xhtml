@@ -58,11 +58,11 @@
 				<f:facet name="header">Ação</f:facet>
 				<h:commandButton action="#{stateController.remove(s)}"
 					value="Excluir" onclick="return window.confirm('Certeza?')">
-					<f:ajax render="tabela" />
+					<f:ajax render="@form" />
 				</h:commandButton>
 
 				<h:commandButton action="#{stateController.editar(s)}" value="Editar">
-					<f:ajax render="dados tabela" />
+					<f:ajax render="@form" />
 				</h:commandButton>
 
 			</h:column>
