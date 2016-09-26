@@ -1,78 +1,91 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/public/template.xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Demo Web</title>
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">DEMO WEB</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h:form styleClass="form-horizontal">
+					<h1>Cerimonial</h1>
+					<div class="panel panel-default">
+						<div class="panel panel-heading">
+							<h:outputText id="titulo" value="Dados do Cliente"
+								style="font-weight: bold;" />
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Nome" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{ceremonialController.ceremonial.nome}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Telefone"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{ceremonialController.ceremonial.telefone}"
+									styleClass="form-control" />
+							</div>
+						</div>
+					</div>
 
-	
-		<h:form id="formulario">
-			<h:outputText id="titulo" value="Cadastro de Cerimonial"
-				style="font-weight: bold;" />
-			<h:panelGrid id="dados" columns="2">
-				<h:outputText id="nomeLabel" value="Nome:" />
-				<h:inputText id="nome" label="Nome:"
-					value="#{ceremonialController.ceremonial.nome}" maxlength="50" />
+					<div class="form-group">
+						<div class="col-md-12">
 
-				<h:outputText id="telefoneLabel" value="Telefone:" />
-				<h:inputText id="telefone" label="Telefone:"
-					value="#{ceremonialController.ceremonial.telefone}" maxlength="50" />
+							<h:commandButton action="#{ceremonialController.save}"
+								value="Salvar" class="btn btn-success" />
+							<h:commandButton rendered="#{ceremonialController.modoEdicao}"
+								action="#{ceremonialController.cancelar}" value="Cancelar"
+								styleClass="btn btn-default" />
 
-			</h:panelGrid>
-			<h:panelGrid columns="2">
-				<h:commandButton action="#{ceremonialController.save}"
-					value="Salvar">
-					<f:ajax execute="formulario" render="dados tabela"></f:ajax>
-				</h:commandButton>
-
-				<h:commandButton rendered="#{ceremonialController.modoEdicao}"
-					action="#{ceremonialController.cancelar}" value="Cancelar">
-					<f:ajax render="formulario"></f:ajax>
-				</h:commandButton>
-			</h:panelGrid>
-
-			<h:messages id="msg" />
-
-			<h:dataTable id="tabela" value="#{ceremonialController.ceremonials}"
-				var="ce" cellpadding="5" cellspacing="3" first="0" rows="5"
-				frame="hsides" rules="all" style="width: 100%" border="10"
-				class="responsive-table">
-
-				<f:facet name="header">
-					<h:outputText value="Cerimonial" />
-				</f:facet>
-
-				<h:column id="columnCodigo">
-					<f:facet name="header">
-						<h:outputText id="headerCodigo" value="Codigo" />
-					</f:facet>
-					<h:outputText id="valorCodigo" value="#{ce.id}" />
-				</h:column>
-				<h:column id="columnNome">
-					<f:facet name="header">
-						<h:outputText id="headerNome" value="Nome" />
-					</f:facet>
-					<h:outputText id="valorNome" value="#{ce.nome}" />
-				</h:column>
-
-				<h:column id="columnTelefone">
-					<f:facet name="header">
-						<h:outputText id="headerTelefone" value="Telefone" />
-					</f:facet>
-					<h:outputText id="valorTelefone" value="#{ce.telefone}" />
-				</h:column>
-
-				<h:column>
-				<f:facet name="header">Ação</f:facet>
-				<h:commandButton action="#{ceremonialController.remove(ce)}" value="Excluir" onclick="return window.confirm('Certeza?')" >
-					<f:ajax  render="@form"/>
-				</h:commandButton>
-				
-				<h:commandButton action="#{ceremonialController.editar(ce)}" value="Editar" >
-					<f:ajax  render="@form"/>
-				</h:commandButton>
-				
-			</h:column>
-			</h:dataTable>
-		</h:form>
-	</ui:composition>
-
+						</div>
+						<div class="form-group col-md-6"></div>
+					</div>
+				</h:form>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Codigo</th>
+							<th>Nome</th>
+							<th>Telefone</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="ce" value="#{ceremonialController.ceremonials}">
+							<tr>
+								<td>#{ce.id}</td>
+								<td>#{ce.nome}</td>
+								<td>#{ce.telefone}</td>
+								<td><h:form>
+										<h:commandLink action="#{ceremonialController.editar(ce)}">
+											<span class="glyphicon glyphicon-edit"></span>
+										</h:commandLink>
+									</h:form></td>
+								<td><h:form>
+										<h:commandLink action="#{ceremonialController.remove(ce)}"
+											onclick="return window.confirm('Certeza?')">
+											<span class="glyphicon glyphicon-trash"></span>
+										</h:commandLink>
+									</h:form></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

@@ -32,7 +32,7 @@ public class ClientConverter implements Converter{
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		if (value instanceof State) {
+		if (value instanceof Client) {
 			Client client = (Client) value;
 			return client.getId().toString();
 		} else {

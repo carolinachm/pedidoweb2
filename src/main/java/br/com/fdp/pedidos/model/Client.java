@@ -1,6 +1,6 @@
 package br.com.fdp.pedidos.model;
 
-import java.math.BigDecimal;
+
 import java.util.Date;
 
 import javax.persistence.Embedded;

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class ItemPedido {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -29,11 +29,14 @@ public class Item {
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	private Order order;
+	@ManyToOne
+	@JoinColumn(nullable=false)
+	private Package embrulho;
 	private long quantidade;
 	@Column(nullable = false, precision = 7, scale = 2)
-	private BigDecimal valorUnitario;
+	private BigDecimal valorProduto;
 	@Column(nullable = false, precision = 7, scale = 2)
-	private BigDecimal valorTotal;
+	private BigDecimal valorEmbrulho;
 	
 	
 

@@ -1,137 +1,200 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<h:head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Demo Web</title>
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">DEMO WEB</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h:form styleClass="form-horizontal">
+					<h1>Pedido</h1>
+					<div class="panel panel-default">
+						<div class="panel panel-heading">
+							<h:outputText id="titulo" value="Dados do Pedido"
+								style="font-weight: bold;" />
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Cliente"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:selectOneMenu id="client" filter="true"
+									styleClass="form-control"
+									value="#{orderController.order.client}"
+									converter="#{clientConverter}" required="true"
+									requiredMessage="O campo 'Cliente' é obrigatório">
+									<f:selectItem noSelectionOption="true"
+										itemLabel="Selecione um cliente" />
+									<f:selectItems value="#{orderController.clients}" var="client"
+										itemValue="#{client}" itemLabel="#{client.nome}" />
+								</h:selectOneMenu>
+							</div>
+						</div>
 
-<ui:composition template="/template.xhtml">
-	<ui:define name="menu">
-		<h:commandLink value="Inicio" action="/template.xhtml" />
-	</ui:define>
-	<ui:define name="conteudo">
-		<h:form id="formulario">
-			<h:outputText id="titulo" value="Cadastro de Pedidos"
-				style="font-weight: bold;" />
-			<h:panelGrid id="dados" columns="4">
-
-				<h:outputLabel for="client" value="Cliente:" />
-				<h:selectOneMenu id="client" filter="true"
-					value="#{orderController.order.client}"
-					converter="#{clientConverter}" required="true"
-					requiredMessage="O campo 'Cliente' é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel=".:Selecione um cliente:. " />
-					<f:selectItems value="#{orderController.clients}" var="client"
-						itemValue="#{client}" itemLabel="#{client.nome}" />
-				</h:selectOneMenu>
-
-				<h:outputLabel for="ceremonial" value="Cerimonial:" />
-				<h:selectOneMenu id="ceremonial" filter="true"
-					value="#{orderController.order.ceremonial}"
-					converter="#{ceremonialConverter}" required="true"
-					requiredMessage="O campo 'Cerimonial' é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel=".:Selecione um cerimonial:." />
-					<f:selectItems value="#{orderController.ceremonials}" var="ce"
-						itemValue="#{ce}" itemLabel="#{ce.nome}" />
-				</h:selectOneMenu>
-
-
-				<h:outputText id="pedidoLabel" value="Data do Pedido:" />
-				<h:inputText id="pedido" p:type="date" value="#{orderController.order.dataPedido}">
-					<f:convertDateTime pattern="yyyy-MM-dd" />
-				</h:inputText>
-
-				<h:outputText id="entregaLabel" value="Data da Entrega:" />
-				<h:inputText id="entrega" p:type="date" value="#{orderController.order.dataEntrega}">
-					<f:convertDateTime pattern="yyyy-MM-dd" />
-				</h:inputText>
-
-				<h:outputText id="bairroLabel" value="Bairro:" />
-				<h:inputText id="bairro" label="Bairro"
-					value="#{orderController.order.enderecoEntrega.bairro}"
-					maxlength="50" />
-
-				<h:outputText id="complementoLabel" value="Complemento:" />
-				<h:inputText id="complemento" label="complemento"
-					value="#{orderController.order.enderecoEntrega.complemento}"
-					maxlength="50" />
-
-				<h:outputText id="numeroLabel" value="Numero:" />
-				<h:inputText id="number" p:type="number" p:min="1" p:max="10"
-					value="#{orderController.order.enderecoEntrega.numero}">
-					
-					<f:convertNumber minFractionDigits="0" />
-				</h:inputText>
+						<div class="form-group">
+							<h:outputLabel value="Cerimonial"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:selectOneMenu id="ceremonial" filter="true"
+									value="#{orderController.order.ceremonial}"
+									converter="#{ceremonialConverter}" required="true"
+									requiredMessage="O campo 'Cerimonial' é obrigatório">
+									<f:selectItem noSelectionOption="true"
+										itemLabel=".:Selecione um cerimonial:." />
+									<f:selectItems value="#{orderController.ceremonials}" var="ce"
+										itemValue="#{ce}" itemLabel="#{ce.nome}" />
+								</h:selectOneMenu>
+							</div>
+						</div>
 
 
-				<h:outputText id="cepLabel" value="Cep:" />
-				<h:inputText id="cep" label="Cep" pattern= "\d{5}-?\d{3}"
-					value="#{orderController.order.enderecoEntrega.cep}" maxlength="50" />
+						<div class="form-group">
+							<h:outputLabel id="pedidoLabel" value="Data do Pedido:"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText id="pedido" p:type="date"
+									value="#{orderController.order.dataPedido}">
+									<f:convertDateTime pattern="yyyy-MM-dd" />
+								</h:inputText>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel id="entregaLabel" value="Data da Entrega:"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText id="entrega" p:type="date"
+									value="#{orderController.order.dataEntrega}">
+									<f:convertDateTime pattern="yyyy-MM-dd" />
+								</h:inputText>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel id="valorLabel" value="Valor:"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{orderController.order.valorTotal}">
+									<f:convertNumber minFractionDigits="2" />
+								</h:inputText>
+							</div>
+						</div>
 
 
-			</h:panelGrid>
-			<h:commandButton action="#{orderController.save}" value="Salvar">
-				<f:ajax execute="formulario" render="dados tabela"></f:ajax>
-			</h:commandButton>
+					</div>
 
-			<h:commandButton rendered="#{orderController.modoEdicao}"
-				action="#{orderController.cancelar}" value="Cancelar">
-				<f:ajax render="formulario"></f:ajax>
-			</h:commandButton>
-			<h:messages id="msg" />
-			<h:dataTable id="tabela" value="#{orderController.orders}" var="o"
-				cellpadding="5" cellspacing="3" first="0" rows="5" frame="hsides"
-				rules="all" style="width: 100%" border="10">
+					<div class="panel panel-default">
+						<div class="panel panel-heading">
+							<h:outputText id="titulo1" value="Endereço"
+								style="font-weight: bold;" />
+						</div>
 
-				<f:facet name="header">
-					<h:outputText value="Pedidos" />
-				</f:facet>
+						<div class="form-group">
+							<h:outputLabel value="Logradouro"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText
+									value="#{orderController.order.enderecoEntrega.logradouro}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Complemento"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText
+									value="#{orderController.order.enderecoEntrega.complemento}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Bairro" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText
+									value="#{orderController.order.enderecoEntrega.bairro}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Numero" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText
+									value="#{orderController.order.enderecoEntrega.numero}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="CEP" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText
+									value="#{orderController.order.enderecoEntrega.cep}"
+									styleClass="form-control" />
+							</div>
+						</div>
 
-				<h:column id="columnCodigo">
-					<f:facet name="header">
-						<h:outputText id="headerCodigo" value="Codigo" />
-					</f:facet>
-					<h:outputText id="valorCodigo" value="#{o.id}" />
-				</h:column>
+					</div>
 
-				<h:column id="columnNome">
-					<f:facet name="header">
-						<h:outputText id="headerNome" value="Cliente" />
-					</f:facet>
-					<h:outputText id="valorNome" value="#{o.client.nome}" />
-				</h:column>
+					<div class="form-group">
+						<div class="col-md-12">
 
-				<h:column id="columnCeremonial">
-					<f:facet name="header">
-						<h:outputText id="headerCerimonial" value="Cerimonial" />
-					</f:facet>
-					<h:outputText id="valorCerimonial" value="#{o.ceremonial.nome}" />
-				</h:column>
+							<h:commandButton action="#{orderController.save}" value="Salvar"
+								class="btn btn-success" />
+							<h:commandButton rendered="#{orderController.modoEdicao}"
+								action="#{orderController.cancelar}" value="Cancelar"
+								styleClass="btn btn-default" />
 
-				<h:column id="columnTelefone">
-					<f:facet name="header">
-						<h:outputText id="headerTelefone" value="Telefone" />
-					</f:facet>
-					<h:outputText id="valorTelefone" value="#{o.ceremonial.telefone}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">Ação</f:facet>
-					<h:commandButton action="#{orderController.remove(o)}"
-						value="Excluir" onclick="return window.confirm('Certeza?')">
-						<f:ajax render="@form" />
-					</h:commandButton>
+						</div>
 
-					<h:commandButton action="#{orderController.editar(o)}"
-						value="Editar">
-						<f:ajax render="@form" />
-					</h:commandButton>
-				</h:column>
-			</h:dataTable>
-		</h:form>
-	</ui:define>
-</ui:composition>
+					</div>
+				</h:form>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Codigo</th>
+							<th>Nome</th>
+							<th>Data Entrega</th>
+							<th>Data Pedido</th>
+							<th>Valor</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="o" value="#{orderController.orders}">
+							<tr>
+								<td>#{o.id}</td>
+								<td>#{o.client.nome}</td>
+								<td>#{o.dataPedido}</td>
+								<td>#{o.dataEntrega}</td>
+								<td>#{o.valorTotal}</td>
+								<td><h:form>
+										<h:commandLink action="#{orderController.editar(o)}">
+											<span class="glyphicon glyphicon-edit"></span>
+										</h:commandLink>
+									</h:form></td>
+								<td><h:form>
+										<h:commandLink action="#{orderController.remove(o)}"
+											onclick="return window.confirm('Certeza?')">
+											<span class="glyphicon glyphicon-trash"></span>
+										</h:commandLink>
+									</h:form></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</h:body>
 </html>
