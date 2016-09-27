@@ -1,1 +1,8 @@
 /target/
+.springBeans
+.tern-project
+mvnw
+mvnw.cmd
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.settings/org.hibernate.eclipse.console.prefs
