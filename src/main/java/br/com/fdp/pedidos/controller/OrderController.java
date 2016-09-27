@@ -6,7 +6,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,35 +17,42 @@ import br.com.fdp.pedidos.model.Ceremonial;
 import br.com.fdp.pedidos.model.Client;
 import br.com.fdp.pedidos.model.Package;
 import br.com.fdp.pedidos.model.Product;
-import br.com.fdp.pedidos.model.State;
 import br.com.fdp.pedidos.repository.CeremonialRepository;
 import br.com.fdp.pedidos.repository.ClientRepository;
 import br.com.fdp.pedidos.repository.OrderRepository;
+import br.com.fdp.pedidos.repository.PackageRepository;
 import br.com.fdp.pedidos.repository.ProductRepository;
-import br.com.fdp.pedidos.repository.StateRepository;
 
 @Named
 @ViewScoped
-@Data
 public class OrderController {
-
+	@Getter
+	@Setter
 	private Order order = new Order();
-	
+	@Getter
+	@Setter
+	private Product product = new Product();
+	@Getter
+	@Setter
 	private ItemPedido item = new ItemPedido();
-	
+	@Getter
+	@Setter
 	private Package embrulho = new Package();
-	
+	@Getter
+	@Setter
 	private List<Order> orders;
-	
+	@Getter
+	@Setter
 	private List<Client> clients;
-	
+	@Getter
+	@Setter
 	private List<Ceremonial> ceremonials;
-
+	@Getter
+	@Setter
 	private List<Product> products;
-	
+	@Getter
+	@Setter
 	private List<Package> embrulhos;
-	
-	private List<ItemPedido> itens;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -56,6 +62,8 @@ public class OrderController {
 	private CeremonialRepository ceremonialRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private PackageRepository embrulhoRepository;
 	@Getter
 	@Setter
 	private boolean modoEdicao = false;
@@ -67,6 +75,7 @@ public class OrderController {
 		clients = clientRepository.findAll();
 		ceremonials = ceremonialRepository.findAll();
 		products = productRepository.findAll();
+		embrulhos = embrulhoRepository.findAll();
 
 	}
 
@@ -95,11 +104,16 @@ public class OrderController {
 		setModoEdicao(false);
 	}
 
-	public void adicionaPedido() {
+	public void adicionarPedido() {
 		item.setOrder(order);
-		order.getItem().add(item);
+		order.getItens().add(item);
 		item = new ItemPedido();
 
+	}
+
+	public void excluirPedido(ItemPedido item) {
+
+		order.getItens().remove(item);
 	}
 
 }
