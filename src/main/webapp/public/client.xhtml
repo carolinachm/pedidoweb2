@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.min.css"/>
     <link rel="stylesheet" href="../resources/css/index.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"/>
 
 </head>
 
@@ -66,13 +67,17 @@
                     <h:column>
                         <f:facet name="header">Ação</f:facet>
                         <h:commandButton styleClass="btn btn-danger" action="#{clientController.remove(c)}"
-                                         value="Excluir" onclick="return window.confirm('Certeza?')">
+                                         value="Excluir" onclick="">
+                            <f:passThroughAttribute name="data-toggle" value="modal" />
+                            <f:passThroughAttribute name="data-target" value="#confirm-delete" />
                             <f:ajax render="formTabela:tabela2"/>
                         </h:commandButton>
 
-                        <h:commandButton styleClass="btn btn-warning" action="#{clientController.editar(c)}"
+                        <h:commandButton  styleClass="btn btn-warning" action="#{clientController.editar(c)}"
                                          value="Editar">
                             <f:ajax render="formulario formTabela"/>
+                            <f:passThroughAttribute name="data-toggle" value="modal" />
+                            <f:passThroughAttribute name="data-target" value="#NovaOS" />
                         </h:commandButton>
 
                     </h:column>
@@ -98,7 +103,7 @@
                                 </div>
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="dadosCli">
-                                        <div class="panel panel-primary">
+                                        <div class="panel panel-default">
                                             <div class="panel panel-heading">
                                                 <h:outputText id="titulo" value="Dados do Cliente"
                                                               style="font-family: 'Lato'"/>
@@ -161,7 +166,7 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="endereco">
-                                        <div class="panel panel-primary">
+                                        <div class="panel panel-default">
                                             <div class="panel panel-heading">
                                                 <h:outputText style="font-family: 'Lato'" id="titulo2"
                                                               value="Endereço do Cliente"
@@ -215,11 +220,10 @@
                                                 <div class="col-md-6">
                                                     <h:outputLabel style="font-family: 'Lato'" for="estado"
                                                                    value="Estado:"/>
-
                                                     <h:selectOneMenu id="estado" filter="true" styleClass="form-control"
                                                                      value="#{clientController.client.state}"
                                                                      converter="#{stateConverter}" required="true"
-                                                                     requiredMessage="O campo 'Estado' é obrigatório">
+                                                                     requiredMessage="O campo estado é obrigatório">
                                                         <f:selectItem noSelectionOption="true"
                                                                       itemLabel="Selecione um Estado"/>
                                                         <f:selectItems value="#{clientController.states}" var="state"
@@ -233,9 +237,9 @@
                                         <h:commandButton styleClass="btn btn-success" data-dismiss="modal"
                                                          action="#{clientController.save}"
                                                          value="Salvar">
-                                            <f:ajax execute="formulario" render="formulario tabela"></f:ajax>
+                                            <f:ajax execute="formulario" render="formulario formTabela"></f:ajax>
                                         </h:commandButton>
-                                        <h:commandButton p:type="submit" styleClass="btn btn-danger"
+                                        <h:commandButton styleClass="btn btn-danger"
                                                          rendered="#{clientController.modoEdicao}" data-dismiss="modal"
                                                          action="#{clientController.cancelar}" value="Cancelar">
                                             <f:ajax render="formulario"></f:ajax>
@@ -266,13 +270,32 @@
                     </ul>
                 </div>
             </footer>
-
-
+            <div class="modal fade" id="confirm-delete">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="h3">Confirmação de exclusão</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="h4">Tem certeza que deseja remover este cliente?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                            <a class="btn btn-success btn-ok">Sim</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <script src="../resources/js/jquery-2.1.4.min.js"></script>
             <script src="../resources/js/bootstrap.min.js"></script>
             <script src="../resources/js/bootstrap-datepicker.min.js"></script>
             <script src="../resources/js/bootstrap-datepicker.pt-BR.min.js"></script>
             <script src="../resources/js/main.js"></script>
+            <script>
+                $('#confirm-delete').on('show.bs.modal', function(e) {
+                    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                });
+            </script>
         </ui:define>
     </div>
 </ui:composition>
