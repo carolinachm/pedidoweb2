@@ -35,7 +35,7 @@ public class Order {
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
 	@Embedded
-	private Address enderecoEntrega;
+	private Address enderecoEntrega = new Address();
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal valorTotal;
 	@ManyToOne
