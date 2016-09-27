@@ -7,34 +7,34 @@ import javax.faces.convert.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.fdp.pedidos.model.Client;
-import br.com.fdp.pedidos.model.State;
-import br.com.fdp.pedidos.repository.ClientRepository;
+import br.com.fdp.pedidos.model.Order;
+import br.com.fdp.pedidos.repository.OrderRepository;
+
 
 
 
 @Component
-public class ClientConverter implements Converter{
+public class OrderConverter implements Converter{
 	
 	@Autowired
-	private ClientRepository clientRepository;
+	private OrderRepository orderRepository;
 
 	
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value.isEmpty())
 			return null;
 		try {
-			Client client = clientRepository.findOne(new Long(value));
-			return client;
+			Order order = orderRepository.findOne(new Long(value));
+			return order;
 		} catch (Exception e) {
 			return null;
 		}
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		if (value instanceof Client) {
-			Client client = (Client) value;
-			return client.getId().toString();
+		if (value instanceof Order) {
+			Order order = (Order) value;
+			return order.getId().toString();
 		} else {
 			return null;
 		}

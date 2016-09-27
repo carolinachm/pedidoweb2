@@ -11,27 +11,48 @@ import lombok.Setter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import br.com.fdp.pedidos.model.ItemPedido;
 import br.com.fdp.pedidos.model.Order;
 import br.com.fdp.pedidos.model.Ceremonial;
 import br.com.fdp.pedidos.model.Client;
-import br.com.fdp.pedidos.model.Order;
-import br.com.fdp.pedidos.model.State;
+import br.com.fdp.pedidos.model.Package;
+import br.com.fdp.pedidos.model.Product;
 import br.com.fdp.pedidos.repository.CeremonialRepository;
 import br.com.fdp.pedidos.repository.ClientRepository;
 import br.com.fdp.pedidos.repository.OrderRepository;
-import br.com.fdp.pedidos.repository.StateRepository;
+import br.com.fdp.pedidos.repository.PackageRepository;
+import br.com.fdp.pedidos.repository.ProductRepository;
 
 @Named
 @ViewScoped
 public class OrderController {
-	@Getter@Setter
+	@Getter
+	@Setter
 	private Order order = new Order();
-	@Getter@Setter
+	@Getter
+	@Setter
+	private Product product = new Product();
+	@Getter
+	@Setter
+	private ItemPedido item = new ItemPedido();
+	@Getter
+	@Setter
+	private Package embrulho = new Package();
+	@Getter
+	@Setter
 	private List<Order> orders;
-	@Getter@Setter
+	@Getter
+	@Setter
 	private List<Client> clients;
-	@Getter@Setter
+	@Getter
+	@Setter
 	private List<Ceremonial> ceremonials;
+	@Getter
+	@Setter
+	private List<Product> products;
+	@Getter
+	@Setter
+	private List<Package> embrulhos;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -39,7 +60,12 @@ public class OrderController {
 	private ClientRepository clientRepository;
 	@Autowired
 	private CeremonialRepository ceremonialRepository;
-	@Getter@Setter
+	@Autowired
+	private ProductRepository productRepository;
+	@Autowired
+	private PackageRepository embrulhoRepository;
+	@Getter
+	@Setter
 	private boolean modoEdicao = false;
 
 	@PostConstruct
@@ -48,7 +74,9 @@ public class OrderController {
 		orders = orderRepository.findAll();
 		clients = clientRepository.findAll();
 		ceremonials = ceremonialRepository.findAll();
-		
+		products = productRepository.findAll();
+		embrulhos = embrulhoRepository.findAll();
+
 	}
 
 	public void save() {
@@ -58,22 +86,34 @@ public class OrderController {
 		order = new Order();
 		setModoEdicao(false);
 	}
-	public void remove(Order order){
+
+	public void remove(Order order) {
 		orderRepository.delete(order);
 		orders.remove(order);
 		order = new Order();
 	}
-	public void editar(Order order){
+
+	public void editar(Order order) {
 		setOrder(order);
 		setModoEdicao(true);
-		
+
 	}
-	public void cancelar(){
+
+	public void cancelar() {
 		order = new Order();
 		setModoEdicao(false);
 	}
 
+	public void adicionarPedido() {
+		item.setOrder(order);
+		order.getItens().add(item);
+		item = new ItemPedido();
 
-	
+	}
+
+	public void excluirPedido(ItemPedido item) {
+
+		order.getItens().remove(item);
+	}
 
 }
