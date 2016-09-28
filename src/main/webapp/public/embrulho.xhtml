@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+<<<<<<< HEAD
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
@@ -99,3 +100,96 @@
 	</ui:define>
 </ui:composition>
 </html>
+=======
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Demo Web</title>
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">DEMO WEB</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h:form styleClass="form-horizontal">
+					<h1>Embrulho</h1>
+					<div class="panel panel-default">
+						<div class="panel panel-heading">
+							<h:outputText id="titulo" value="Dados do Embrulho"
+								style="font-weight: bold;" />
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Descrição" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{packageController.embrulho.descricao}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<h:outputLabel value="Valor" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{packageController.embrulho.valorPackage}"
+									styleClass="form-control" />
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-md-12">
+
+							<h:commandButton action="#{packageController.save}" value="Salvar"
+								class="btn btn-success" />
+							<h:commandButton rendered="#{packageController.modoEdicao}"
+								action="#{packageController.cancelar}" value="Cancelar"
+								styleClass="btn btn-default" />
+
+						</div>
+						<div class="form-group col-md-6"></div>
+					</div>
+				</h:form>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Codigo</th>
+							<th>Descricao</th>
+							<th>Valor</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="e" value="#{packageController.embrulhos}">
+							<tr>
+								<td>#{e.id}</td>
+								<td>#{e.descricao}</td>
+								<td>#{e.valorPackage}</td>
+
+								<td><h:form>
+										<h:commandLink action="#{packageController.editar(e)}">
+											<span class="glyphicon glyphicon-edit"></span>
+										</h:commandLink>
+									</h:form></td>
+								<td><h:form>
+										<h:commandLink action="#{packageController.remove(e)}"
+											onclick="return window.confirm('Certeza?')">
+											<span class="glyphicon glyphicon-trash"></span>
+										</h:commandLink>
+									</h:form></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
+>>>>>>> Carol

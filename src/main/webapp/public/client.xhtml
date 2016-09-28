@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -300,3 +301,196 @@
     </div>
 </ui:composition>
 </html>
+=======
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<h:head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<title>Demo Web</title>
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-brand">DEMO WEB</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h:form styleClass="form-horizontal">
+				<h1>Cliente</h1>
+					<div class="panel panel-default">
+						<div class="panel panel-heading">
+							<h:outputText id="titulo" value="Dados do Cliente"
+								style="font-weight: bold;" />
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Nome" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{clientController.client.nome}"
+									styleClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel value="Nome Noivo"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{clientController.client.nomeNoivo}"
+									styleClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel value="CPF" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{clientController.client.cpf}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Telefone"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{clientController.client.telefone}"
+									styleClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel value="Data de Nascimento"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText p:type="date" styleClass="form-control"
+									value="#{clientController.client.dataNascimento}" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel value="Email" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText p:type="email" styleClass="form-control"
+									value="#{clientController.client.email}" />
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel panel-heading">
+							<h:outputText id="titulo1" value="Endereço"
+								style="font-weight: bold;" />
+						</div>
+						
+						<div class="form-group">
+							<h:outputLabel value="Logradouro"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText
+									value="#{clientController.client.address.logradouro}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Complemento"
+								styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText
+									value="#{clientController.client.address.complemento}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Bairro" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{clientController.client.address.bairro}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Numero" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{clientController.client.address.numero}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="CEP" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:inputText value="#{clientController.client.address.cep}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+						<h:outputLabel value="Estado" styleClass="control-label col-sm-2" />
+							<div class="col-sm-6">
+								<h:selectOneMenu id="estado" filter="true"
+									styleClass="form-control"
+									value="#{clientController.client.state}"
+									converter="#{stateConverter}" required="true"
+									requiredMessage="O campo 'Estado' é obrigatório">
+									<f:selectItem noSelectionOption="true"
+										itemLabel="Selecione um estado" />
+									<f:selectItems value="#{clientController.states}" var="state"
+										itemValue="#{state}" itemLabel="#{state.uf}" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-12">
+
+							<h:commandButton action="#{clientController.save}" value="Salvar"
+								class="btn btn-success" />
+							<h:commandButton rendered="#{clientController.modoEdicao}"
+								action="#{clientController.cancelar}" value="Cancelar"
+								styleClass="btn btn-default" />
+
+						</div>
+
+					</div>
+				</h:form>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Codigo</th>
+							<th>Nome</th>
+							<th>Noivo</th>
+							<th>Telefone</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="cli" value="#{clientController.clients}">
+							<tr>
+								<td>#{cli.id}</td>
+								<td>#{cli.nome}</td>
+								<td>#{cli.nomeNoivo}</td>
+								<td>#{cli.telefone}</td>
+								<td><h:form>
+										<h:commandLink action="#{clientController.editar(cli)}">
+											<span class="glyphicon glyphicon-edit"></span>
+										</h:commandLink>
+									</h:form></td>
+								<td><h:form>
+										<h:commandLink action="#{clientController.remove(cli)}"
+											onclick="return window.confirm('Certeza?')">
+											<span class="glyphicon glyphicon-trash"></span>
+										</h:commandLink>
+									</h:form></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
+>>>>>>> Carol

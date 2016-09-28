@@ -1,0 +1,21 @@
+/target/
+<<<<<<< HEAD
+.idea
+.classpath
+.project
+.settings
+.springBeans
+.tern-project
+mvnw
+mvnw.cmd
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.settings/org.hibernate.eclipse.console.prefs
+.maven-wrapper.jar
+.maven-wrapper.properties
+
+=======
+.classpath
+.project
+.settings
+>>>>>>> Carol
