@@ -1,77 +1,89 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
 <h:head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta http-equiv="X-UA-Conpatible" content="IE=edge"/>
-    <script src="../resources/css/bootstrap.min.css"></script>
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../resources/css/index.css"/>
-    <title>Demo Web</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+	<script src="../resources/css/bootstrap.min.css"></script>
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../resources/css/index.css" />
+	<title>Demo Web</title>
 </h:head>
 <h:body>
-    <ui:composition template="template.xhtml">
-        <div class="container">
-            <ui:define name="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h:form styleClass="form-horizontal">
-                            <div class="breadcrumb">
-                                <h1 align="center"> Lista de Pedidos</h1>
-                            </div>
+	<ui:composition template="template.xhtml">
+		<div class="container">
+			<ui:define name="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<h:form styleClass="form-horizontal">
+							<div class="breadcrumb">
+								<h1 align="center">Lista de Pedidos</h1>
+							</div>
+
+							<div class="col-md-6">
+								<div class="input-group h2">
+									<h:outputText name="data[search]" class="form-control" id="search"
+										type="text" placeholder="Pesquisar Itens"/> <span
+										class="input-group-btn">
+											<button class="btn btn-primary" type="submit">
+												<span class="glyphicon glyphicon-search"></span>
+											</button>
+									</span>
+								</div>
+							</div>
 
 
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Codigo</th>
-                                    <th>Nome</th>
-                                    <th>Data Entrega</th>
-                                    <th>Data Pedido</th>
-                                    <th>Valor</th>
-                                    <th>Ação</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <ui:repeat var="o" value="#{orderController.orders}">
-                                    <tr>
-                                        <td>#{o.id}</td>
-                                        <td>#{o.client.nome}</td>
-                                        <td>#{o.dataPedido}</td>
-                                        <td>#{o.dataEntrega}</td>
-                                        <td>#{o.valorTotal}</td>
-                                        <td><h:form>
-                                            <h:commandLink action="#{orderController.editar(o)}">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </h:commandLink>
-                                        </h:form></td>
-                                        <td><h:form>
-                                            <h:commandLink action="#{orderController.remove(o)}"
-                                                           onclick="return window.confirm('Certeza?')">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </h:commandLink>
-                                        </h:form></td>
-                                    </tr>
-                                </ui:repeat>
-                                </tbody>
-                            </table>
-                        </h:form>
-                    </div>
-                </div>
-                <script src="../resources/js/jquery-2.1.4.min.js"></script>
-                <script src="../resources/js/bootstrap.min.js"></script>
-                <script src="../resources/js/bootstrap-datepicker.min.js"></script>
-                <script src="../resources/js/bootstrap-datepicker.pt-BR.min.js"></script>
-                <script src="../resources/js/main.js"></script>
-                <script src="../resources/js/bootbox.min.js"></script>
-            </ui:define>
-        </div>
-    </ui:composition>
+							<table class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>Codigo</th>
+										<th>Nome</th>
+										<th>Data Entrega</th>
+										<th>Data Pedido</th>
+										<th>Valor</th>
+										<th>Ação</th>
+									</tr>
+								</thead>
+								<tbody>
+									<ui:repeat var="o" value="#{orderController.orders}">
+										<tr>
+											<td>#{o.id}</td>
+											<td>#{o.client.nome}</td>
+											<td>#{o.dataPedido}</td>
+											<td>#{o.dataEntrega}</td>
+											<td>#{o.valorTotal}</td>
+											<td><h:form>
+													<h:commandLink action="#{orderController.editar(o)}">
+														<span class="glyphicon glyphicon-edit"></span>
+													</h:commandLink>
+												</h:form></td>
+											<td><h:form>
+													<h:commandLink action="#{orderController.remove(o)}"
+														onclick="return window.confirm('Certeza?')">
+														<span class="glyphicon glyphicon-trash"></span>
+													</h:commandLink>
+												</h:form></td>
+										</tr>
+									</ui:repeat>
+								</tbody>
+							</table>
+						</h:form>
+					</div>
+				</div>
+				<script src="../resources/js/jquery-2.1.4.min.js"></script>
+				<script src="../resources/js/bootstrap.min.js"></script>
+				<script src="../resources/js/bootstrap-datepicker.min.js"></script>
+				<script src="../resources/js/bootstrap-datepicker.pt-BR.min.js"></script>
+				<script src="../resources/js/main.js"></script>
+				<script src="../resources/js/bootbox.min.js"></script>
+			</ui:define>
+		</div>
+	</ui:composition>
 </h:body>
 </html>
