@@ -1,66 +1,88 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <script src="../resources/css/bootstrap.min.css"></script>
+    <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../resources/css/index.css"/>
 
+</h:head>
+<ui:composition template="template.xhtml">
+    <div class="container">
+        <ui:define name="container">
+            <div class="breadcrumb">
+                <h1 align="center">Cadastrar Novo Estado</h1>
+            </div>
 
-    
-	<h:form id="formulario">
-		<h:outputText id="titulo" value="Cadastro de Estados"
-			style="font-weight: bold;" />
-		<h:panelGrid id="dados" columns="2">
-			<h:outputText id="loginLabel" value="UF:" />
-			<h:inputText id="uf" label="UF"
-				value="#{stateController.state.uf}" maxlength="50" />
-			
-		</h:panelGrid>
-		<h:panelGrid columns="2">
-			<h:commandButton action="#{stateController.save}" value="Salvar">
-				<f:ajax execute="formulario" render="dados tabela" ></f:ajax>
-			</h:commandButton>
+            <h:form id="formulario">
+                <div class="form-group form-group-lg col-lg-8">
+                    <label for="uf">Insira a Unidade Federativa(UF)</label>
+                    <h:inputText value="#{stateController.state.uf}"
+                                 styleClass="form-control" id="uf" p:placeholder="MS, SP, MG..."/>
+                </div>
+                <div class="container">
+                    <div class="col-md-6">
+                        <h:commandButton styleClass="btn btn-success btn-lg" action="#{stateController.save}"
+                                         value="Salvar">
+                            <f:ajax execute="formulario" render="formulario tabela:tabela2"></f:ajax>
+                        </h:commandButton>
+                    </div>
+                    <div class="col-md-6">
+                        <h:commandButton styleClass="btn btn-danger btn-lg" rendered="#{stateController.modoEdicao}"
+                                         action="#{stateController.cancelar}" value="Cancelar">
+                            <f:ajax render="formulario"></f:ajax>
+                        </h:commandButton>
+                    </div>
+                </div>
+            </h:form>
+            <br></br>
+            <h:messages id="msg"/>
 
-			<h:commandButton rendered="#{stateController.modoEdicao}"
-				action="#{stateController.cancelar}" value="Cancelar">
-				<f:ajax render="formulario"></f:ajax>
-			</h:commandButton>
-		</h:panelGrid>
+            <div class="breadcrumb">
+                <h1 align="center">Lista de Estados</h1>
+            </div>
+            <h:form id="tabela">
+                <h:dataTable id="tabela2" value="#{stateController.states}" var="s"
+                             styleClass="table table-bordered table-striped">
+                    <h:column id="columnCodigo">
+                        <f:facet name="header">
+                            <h:outputText id="headerCodigo" value="Codigo"/>
+                        </f:facet>
+                        <h:outputText id="valorCodigo" value="#{s.id}"/>
+                    </h:column>
+                    <h:column id="columnNome">
+                        <f:facet name="header">
+                            <h:outputText id="headerUF" value="UF"/>
+                        </f:facet>
+                        <h:outputText id="valorUF" value="#{s.uf}"/>
+                    </h:column>
 
-		<h:messages id="msg" />
+                    <h:column>
+                        <f:facet name="header">Ação</f:facet>
+                        <h:commandButton styleClass="btn btn-danger" action="#{stateController.remove(s)}"
+                                         value="Excluir" onclick="return window.confirm('Certeza?')">
+                            <f:ajax render="formulario tabela:tabela2"/>
+                        </h:commandButton>
 
-		<h:dataTable id="tabela" value="#{stateController.states}" var="s"
-			cellpadding="5" cellspacing="3" first="0" rows="5" frame="hsides"
-			rules="all" style="width: 100%" border="10">
+                        <h:commandButton styleClass="btn btn-warning" action="#{stateController.editar(s)}"
+                                         value="Editar">
+                            <f:ajax render="formulario"/>
+                        </h:commandButton>
 
-			<f:facet name="header">
-				<h:outputText value="Estados" />
-			</f:facet>
-			
-			<h:column id="columnCodigo">
-				<f:facet name="header">
-					<h:outputText id="headerCodigo" value="Codigo" />
-				</f:facet>
-				<h:outputText id="valorCodigo" value="#{s.id}" />
-			</h:column>
-			<h:column id="columnNome">
-				<f:facet name="header">
-					<h:outputText id="headerUF" value="UF" />
-				</f:facet>
-				<h:outputText id="valorUF" value="#{s.uf}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Ação</f:facet>
-				<h:commandButton action="#{stateController.remove(s)}"
-					value="Excluir" onclick="return window.confirm('Certeza?')">
-					<f:ajax render="@form" />
-				</h:commandButton>
-
-				<h:commandButton action="#{stateController.editar(s)}" value="Editar">
-					<f:ajax render="@form" />
-				</h:commandButton>
-
-			</h:column>
-		</h:dataTable>
-	</h:form>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+            <script src="../resources/js/jquery-2.1.4.min.js"></script>
+            <script src="../resources/js/bootstrap.min.js"></script>
+            <script src="../resources/js/bootstrap-datepicker.min.js"></script>
+            <script src="../resources/js/bootstrap-datepicker.pt-BR.min.js"></script>
+            <script src="../resources/js/main.js"></script>
+            <script src="../resources/js/bootbox.min.js"></script>
+        </ui:define>
+    </div>
+</ui:composition>
 </html>
