@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import br.com.fdp.pedidos.model.ItemPedido;
 import br.com.fdp.pedidos.model.Order;
 import br.com.fdp.pedidos.model.Payment;
 import br.com.fdp.pedidos.repository.OrderRepository;
@@ -58,5 +59,11 @@ public class PaymentController {
 		payment = new Payment();
 		setModoEdicao(false);
 	}
+	public void adicionarPagamento() {
+	
+
+
+	}
+	
 
 }

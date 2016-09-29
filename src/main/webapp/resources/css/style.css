@@ -16,3 +16,14 @@
   max-height: 150px;
   overflow-y: auto;
 }
+.auto-complete-selectbox {
+   border: 1px solid #BBBBBB;
+   padding: 1px;
+   background-color: #F8F8F8;
+   overflow: auto;
+   height: 80px;
+}
+ 
+.auto-complete-selectbox select{
+   border:none;
+}

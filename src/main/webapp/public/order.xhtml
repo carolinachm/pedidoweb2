@@ -4,20 +4,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:jsf="http://xmlns.jcp.org/jsf">
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:util="http://java.sun.com/jsf/composite/util">
 <h:head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
-	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
-		<h:outputStylesheet library="css" name="style.css"/>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="style.css" />
 	<script>
-	 $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
-		  name: 'client',
-		  limit: 10,
-		  source: client
-		});
-     </script>
+$(document).ready(function(){
+	$('input.typeahead').typeahead({
+		name: 'client',
+		local: ['Carolina']
+	});
+})
+</script>
 	<title>Demo Web</title>
 </h:head>
 <h:body>
@@ -61,15 +63,23 @@
 							<h:outputLabel value="Cliente"
 								styleClass="control-label col-sm-2" />
 							<div id="scrollable-dropdown-menu">
-								<h:inputText id="client" class="typeahead" type="text" placeholder="Cliente"
-									value="#{orderController.order.client}" />
+
+								<h:selectOneMenu value="#{orderController.order.client}"
+									class="typeahead" placeholder="Cliente"
+									converter="#{clientConverter}" autocomplete="off">
+									<f:selectItem noSelectionOption="true"
+										itemLabel=".:Selecione um Cliente:. " />
+									<f:selectItems value="#{orderController.clients}" var="cli"
+										itemValue="#{cli}" itemLabel="#{cli.nome}" />
+								</h:selectOneMenu>
+
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-12">
 
-								<h:commandButton action="#{orderController.save}" value="Novo"
+								<h:button outcome="/public/client.xhtml" value="Novo"
 									class="btn btn-success" />
 
 
@@ -161,13 +171,13 @@
 									styleClass="form-control" />
 							</div>
 						</div>
-						<div class="form-group">
-							<h:outputLabel value="Numero" styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
-								<h:inputText
-									value="#{orderController.order.enderecoEntrega.numero}"
-									styleClass="form-control" />
-							</div>
+						<div class="col-md-4">
+							<h:outputText id="numeroLabel" value="Numero:" />
+							<h:inputText id="number" p:type="number" p:min="1" p:max="10"
+								styleClass="form-control" p:placeholder="Ex: 123"
+								value="#{orderController.order.enderecoEntrega.numero}">
+								<f:convertNumber minFractionDigits="0" />
+							</h:inputText>
 						</div>
 						<div class="form-group">
 							<h:outputLabel value="CEP" styleClass="control-label col-sm-2" />
@@ -218,9 +228,8 @@
 									requiredMessage="O campo 'Embrulho' é obrigatório">
 									<f:selectItem noSelectionOption="true"
 										itemLabel=".:Selecione um embrulho:. " />
-									<f:selectItems value="#{orderController.embrulhos}"
-										var="embrulho" itemValue="#{embrulho}"
-										itemLabel="#{order.embrulho.descricao}" />
+									<f:selectItems value="#{orderController.embrulhos}" var="em"
+										itemValue="#{em}" itemLabel="#{em.descricao}" />
 								</h:selectOneMenu>
 
 								<h:outputText value="Valor Produto:" />
@@ -236,14 +245,18 @@
 								</h:inputText>
 
 
-								<h:outputLabel value="Quantidade"
-									styleClass="control-label col-sm-2" />
-
-								<h:inputText value="#{orderController.item.quantidade}"
-									styleClass="form-control" />
+								<div class="col-md-4">
+									<h:outputText id="qtidadeLabel" value="Quantidade:" />
+									<h:inputText id="qtidade" p:type="qtidade" p:min="1" p:max="10"
+										styleClass="form-control" p:placeholder="Ex: 123"
+										value="#{orderController.item.quantidade}">
+										<f:convertNumber minFractionDigits="0" />
+									</h:inputText>
+								</div>
 
 
 								<h:commandButton action="#{orderController.adicionarPedido()}"
+							
 									value="+" title="Adicionar">
 									<f:ajax render="@form" />
 								</h:commandButton>
@@ -261,14 +274,14 @@
 										</tr>
 									</thead>
 									<tbody>
-										<ui:repeat var="o" value="#{orderController.order.itens}">
+										<ui:repeat var="item" value="#{orderController.order.itens}">
 											<tr>
-												<td>#{o.id}</td>
-												<td>#{o.item.product.descricao}</td>
-												<td>#{o.client.nome}</td>
-												<td>#{o.item.valorProduto}</td>
-												<td>#{o.item.valorEmbrulho}</td>
-												<td>#{o.item.quantidade}</td>
+												<td>#{item.id}</td>
+												<td>#{item.product.descricao}</td>
+												<td>#{item.order.client.nome}</td>
+												<td>#{item.valorProduto}</td>
+												<td>#{item.valorEmbrulho}</td>
+												<td>#{item.quantidade}</td>
 
 
 												<td><h:form>
@@ -313,6 +326,52 @@
 									value="#{paymentController.payment.dataPagamento}" />
 							</div>
 						</div>
+						<div class="form-group">
+							<h:outputLabel value="Observação"
+								styleClass="control-label col-sm-2" />
+							<div class="form-group col-md-4">
+								<h:inputText value="#{paymentController.payment.observacao}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						
+						<h:commandButton action="#{orderController.adicionarPagamento()}"
+							
+									value="+" title="Adicionar">
+									<f:ajax render="@form" />
+								</h:commandButton>
+								
+								<table class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Codigo</th>
+											<th>Valor</th>
+											<th>Data</th>
+											<th>Observação</th>
+											<th>Ação</th>
+										</tr>
+									</thead>
+									<tbody>
+										<ui:repeat var="pg" value="#{paymentController.payments}">
+											<tr>
+												<td>#{pg.id}</td>
+												<td>#{pg.valor}</td>
+												<td>#{pg.dataPagamento}</td>
+
+
+												<td><h:form>
+														<h:commandButton
+															action="#{orderController.excluirPedido(item)}" value="-"
+															titulo="Excluir">
+															<f:ajax render="@form" />
+														</h:commandButton>
+													</h:form></td>
+
+											</tr>
+										</ui:repeat>
+									</tbody>
+								</table>
+								
 
 					</div>
 

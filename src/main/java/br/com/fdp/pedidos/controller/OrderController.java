@@ -17,11 +17,13 @@ import br.com.fdp.pedidos.model.Order;
 import br.com.fdp.pedidos.model.Ceremonial;
 import br.com.fdp.pedidos.model.Client;
 import br.com.fdp.pedidos.model.Package;
+import br.com.fdp.pedidos.model.Payment;
 import br.com.fdp.pedidos.model.Product;
 import br.com.fdp.pedidos.repository.CeremonialRepository;
 import br.com.fdp.pedidos.repository.ClientRepository;
 import br.com.fdp.pedidos.repository.OrderRepository;
 import br.com.fdp.pedidos.repository.PackageRepository;
+import br.com.fdp.pedidos.repository.PaymentRepository;
 import br.com.fdp.pedidos.repository.ProductRepository;
 
 @Named
@@ -57,6 +59,9 @@ public class OrderController {
 	@Getter
 	@Setter
 	private List<ItemPedido> itens;
+	@Getter
+	@Setter
+	private List<Payment> payments;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -68,6 +73,8 @@ public class OrderController {
 	private ProductRepository productRepository;
 	@Autowired
 	private PackageRepository embrulhoRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
 	@Getter
 	@Setter
 	private boolean modoEdicao = false;
@@ -80,6 +87,7 @@ public class OrderController {
 		ceremonials = ceremonialRepository.findAll();
 		products = productRepository.findAll();
 		embrulhos = embrulhoRepository.findAll();
+		payments= paymentRepository.findAll();
 		
 		itens = new ArrayList<ItemPedido>();
 
@@ -110,7 +118,7 @@ public class OrderController {
 		setModoEdicao(false);
 	}
 
-	public void adicionarProduto() {
+	public void adicionarPedido() {
 		item.setOrder(order);
 		order.getItens().add(item);
 		item = new ItemPedido();
@@ -118,6 +126,7 @@ public class OrderController {
 
 	}
 	
+
 	public void excluirPedido(ItemPedido item) {
 
 		order.getItens().remove(item);
