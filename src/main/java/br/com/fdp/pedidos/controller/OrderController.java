@@ -1,5 +1,6 @@
 package br.com.fdp.pedidos.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -53,6 +54,9 @@ public class OrderController {
 	@Getter
 	@Setter
 	private List<Package> embrulhos;
+	@Getter
+	@Setter
+	private List<ItemPedido> itens;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -76,6 +80,8 @@ public class OrderController {
 		ceremonials = ceremonialRepository.findAll();
 		products = productRepository.findAll();
 		embrulhos = embrulhoRepository.findAll();
+		
+		itens = new ArrayList<ItemPedido>();
 
 	}
 
@@ -104,16 +110,18 @@ public class OrderController {
 		setModoEdicao(false);
 	}
 
-	public void adicionarPedido() {
+	public void adicionarProduto() {
 		item.setOrder(order);
 		order.getItens().add(item);
 		item = new ItemPedido();
 
-	}
 
+	}
+	
 	public void excluirPedido(ItemPedido item) {
 
 		order.getItens().remove(item);
 	}
+
 
 }

@@ -32,7 +32,7 @@ public class ItemPedido {
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	private Package embrulho;
-	private long quantidade;
+	private short quantidade;
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal valorProduto;
 	@Column(nullable = false, precision = 7, scale = 2)

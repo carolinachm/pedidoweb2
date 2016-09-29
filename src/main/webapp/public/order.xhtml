@@ -9,7 +9,15 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="X-UA-Conpatible" content="IE=edge" />
-	<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="css" name="style.css"/>
+	<script>
+	 $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
+		  name: 'client',
+		  limit: 10,
+		  source: client
+		});
+     </script>
 	<title>Demo Web</title>
 </h:head>
 <h:body>
@@ -52,18 +60,21 @@
 						<div class="form-group">
 							<h:outputLabel value="Cliente"
 								styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
-								<h:selectOneMenu id="client" filter="true"
-									styleClass="form-control"
-									value="#{orderController.order.client}"
-									converter="#{clientConverter}" required="true"
-									requiredMessage="O campo 'Cliente' é obrigatório">
-									<f:selectItem noSelectionOption="true"
-										itemLabel="Selecione um cliente" />
-									<f:selectItems value="#{orderController.clients}" var="client"
-										itemValue="#{client}" itemLabel="#{client.nome}" />
-								</h:selectOneMenu>
+							<div id="scrollable-dropdown-menu">
+								<h:inputText id="client" class="typeahead" type="text" placeholder="Cliente"
+									value="#{orderController.order.client}" />
 							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-md-12">
+
+								<h:commandButton action="#{orderController.save}" value="Novo"
+									class="btn btn-success" />
+
+
+							</div>
+
 						</div>
 
 						<div class="form-group">
@@ -228,7 +239,7 @@
 								<h:outputLabel value="Quantidade"
 									styleClass="control-label col-sm-2" />
 
-								<h:inputText value="#{orderController.item.product.quantidade}"
+								<h:inputText value="#{orderController.item.quantidade}"
 									styleClass="form-control" />
 
 
@@ -286,21 +297,6 @@
 								style="font-weight: bold;" />
 						</div>
 
-						<div class="form-group">
-							<h:outputLabel value="Pedido" styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
-								<h:selectOneMenu id="pedido" filter="true"
-									styleClass="form-control"
-									value="#{paymentController.payment.order}"
-									converter="#{orderConverter}" required="true"
-									requiredMessage="O campo 'Pedido' é obrigatório">
-									<f:selectItem noSelectionOption="true"
-										itemLabel="Selecione um pedido" />
-									<f:selectItems value="#{paymentController.orders}" var="order"
-										itemValue="#{order}" itemLabel="#{order.client.nome}" />
-								</h:selectOneMenu>
-							</div>
-						</div>
 						<div class="form-group">
 							<h:outputLabel value="Valor pago"
 								styleClass="control-label col-sm-2" />
