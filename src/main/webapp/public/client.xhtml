@@ -17,9 +17,161 @@
     <div class="container">
         <ui:define name="container">
             <div class="breadcrumb">
-                <h1 align="center">Lista de Clientes</h1>
+                <h1 align="center">Cadastar um Cliente</h1>
             </div>
 
+            <h:form id="formulario" style="font-family: 'Lato', Sans-Serif">
+
+                <div class="navegacao-abas">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="active"><a href="#dadosCli" data-toggle="tab">Dados do Cliente</a>
+                        </li>
+                        <li><a href="#endereco" data-toggle="tab">Endereço do Cliente</a></li>
+                    </ul>
+                </div>
+                <br></br>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="dadosCli">
+                        <div class="panel panel-default">
+                            <div class="panel panel-heading">
+                                <h:outputText id="titulo" value="Dados do Cliente"/>
+                            </div>
+                            <div class="panel-body">
+                                <div id="dados">
+                                    <div class="form-group form-group-lg col-md-12">
+                                        <h:outputText style="font-family: 'Lato'" id="nomeLabel"
+                                                      value="Nome Noivo(a):"/>
+                                        <h:inputText id="nome" label="Nome" styleClass="form-control "
+                                                     value="#{clientController.client.nome}"
+                                                     p:placeholder="Ex: Jão, Maria"
+                                                     maxlength="50"/>
+                                    </div>
+                                    <div  class="form-group form-group-lg col-md-4">
+                                        <h:outputText id="cpfLabel"
+                                                      value="CPF:"/>
+                                        <h:inputText id="cpf" label="cpf" styleClass="form-control"
+                                                     value="#{clientController.client.cpf}"
+                                                     p:placeholder="12.345.678-90"
+                                                     maxlength="50"/>
+                                    </div>
+                                    <div  class="form-group form-group-lg col-md-4">
+                                        <h:outputText id="telefoneLabel"
+                                                      value="Telefone:"/>
+                                        <h:inputText id="telefone" label="Telefone"
+                                                     styleClass="form-control"
+                                                     p:placeholder="(DDD)91234-5678"
+                                                     value="#{clientController.client.telefone}"
+                                                     maxlength="50"/>
+                                    </div>
+                                    <div  class="form-group form-group-lg col-md-4">
+                                        <h:outputText id="nascimentoLabel"
+                                                      value="Data de Nascimento"/>
+
+                                        <h:inputText id="nascimento" p:type="date"
+                                                     styleClass="form-control"
+                                                     p:placeholder="dia/mês/ano"
+                                                     value="#{clientController.client.dataNascimento}">
+                                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                                        </h:inputText>
+                                    </div>
+                                    <div  class="form-group form-group-lg col-md-8">
+                                        <h:outputText id="emailLabel"
+                                                      value="Email:"/>
+                                        <h:inputText id="email" p:type="email" styleClass="form-control"
+                                                     p:placeholder="jão@hightech.com"
+                                                     value="#{clientController.client.email}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="endereco">
+                        <div class="panel panel-default">
+                            <div class="panel panel-heading">
+                                <h:outputText id="titulo2"
+                                              value="Endereço do Cliente"
+                                />
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group form-group-lg col-md-6">
+                                    <h:outputText id="logradouroLabel"
+                                                  value="Logradouro:"/>
+                                    <h:inputText id="logradouro" label="Logradoruro"
+                                                 styleClass="form-control"
+                                                 p:placeholder="Ex: Av. Florestal"
+                                                 value="#{clientController.client.address.logradouro}"
+                                                 maxlength="50"/>
+                                </div>
+                                <div  class="form-group form-group-lg col-md-6">
+                                    <h:outputText id="bairroLabel"
+                                                  value="Bairro:"/>
+                                    <h:inputText id="bairro" label="Bairro"
+                                                 styleClass="form-control"
+                                                 p:placeholder="Ex: Santa Carmélia"
+                                                 value="#{clientController.client.address.bairro}"
+                                                 maxlength="50"/>
+                                </div>
+                                <div  class="form-group form-group-lg col-md-4">
+                                    <h:outputText id="complementoLabel"
+                                                  value="Complemento:"/>
+                                    <h:inputText id="complemento" label="complemento"
+                                                 styleClass="form-control"
+                                                 p:placeholder="Casa, Apartamento etc."
+                                                 value="#{clientController.client.address.complemento}"
+                                                 maxlength="50"/>
+                                </div>
+                                <div class="form-group form-group-lg col-md-4">
+                                    <h:outputText id="numeroLabel"
+                                                  value="Numero:"/>
+                                    <h:inputText id="number" p:type="number" p:min="1" p:max="10"
+                                                 styleClass="form-control" p:placeholder="Ex: 123"
+                                                 value="#{clientController.client.address.numero}">
+                                        <f:convertNumber minFractionDigits="0"/>
+                                    </h:inputText>
+                                </div>
+                                <div class="form-group form-group-lg col-md-4">
+                                    <h:outputText id="cepLabel"
+                                                  value="Cep:"/>
+                                    <h:inputText id="cep" label="Cep" styleClass="form-control"
+                                                 value="#{clientController.client.address.cep}"
+                                                 p:placeholder="Ex: 79115-485"
+                                                 maxlength="50"/>
+                                </div>
+                                <div  class="form-group form-group-lg col-md-6">
+                                    <h:outputLabel for="estado"
+                                                   value="Estado:"/>
+                                    <h:selectOneMenu id="estado" filter="true" styleClass="form-control"
+                                                     value="#{clientController.client.state}"
+                                                     converter="#{stateConverter}" required="true"
+                                                     requiredMessage="O campo estado é obrigatório">
+                                        <f:selectItem noSelectionOption="true"
+                                                      itemLabel="Selecione um Estado"/>
+                                        <f:selectItems value="#{clientController.states}" var="state"
+                                                       itemValue="#{state}" itemLabel="#{state.uf}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    <h:commandButton styleClass="btn btn-success"
+                                     action="#{clientController.save}"
+                                     value="Pronto!">
+                        <f:ajax execute="formulario" render="formulario formTabela"></f:ajax>
+                    </h:commandButton>
+                    </div>
+                        <h:commandLink styleClass="btn btn-danger"
+                                       action="#{clientController.cancelar}" value="Resetar">
+                            <f:ajax render="formulario"></f:ajax>
+                        </h:commandLink>
+                    </div>
+                    <h:messages id="msg"/>
+
+            </h:form>
+            <br></br>
+            <div class="breadcrumb">
+                <h1 align="center">Lista de Clientes</h1>
+            </div>
             <h:form id="formTabela">
                 <h:dataTable id="tabela2" value="#{clientController.clients}" var="c"
                              styleClass="dados-os table table-striped table-bordered table-hover">
@@ -63,183 +215,20 @@
                                          value="Excluir">
                             <f:ajax render="formTabela:tabela2"/>
                         </h:commandButton>
-
+                        <div class="col-md-1"/>
                         <h:commandButton styleClass="btn btn-warning" action="#{clientController.editar(c)}"
                                          value="Editar">
                             <f:ajax render="formulario formTabela"/>
-                            <f:passThroughAttribute name="data-toggle" value="modal"/>
-                            <f:passThroughAttribute name="data-target" value="#NovaOS"/>
                         </h:commandButton>
 
                     </h:column>
                 </h:dataTable>
             </h:form>
-            <div class="modal fade" id="NovaOS">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" data-dismiss="modal" class="close">
-                                <span>&times;</span>
-                            </button>
-                            <h4 class="modal-title">Cadastrar Novo Cliente</h4>
-                        </div>
-                        <h:form id="formulario" style="font-family: 'Lato', Sans-Serif">
-                            <div class="modal-body">
-                                <div class="navegacao-abas">
-                                    <ul class="nav nav-pills nav-justified">
-                                        <li class="active"><a href="#dadosCli" data-toggle="tab">Dados do Cliente</a>
-                                        </li>
-                                        <li><a href="#endereco" data-toggle="tab">Endereço do Cliente</a></li>
-                                    </ul>
-                                </div>
-                                <br></br>
-                                <div class="tab-content">
-                                    <div class="tab-pane fade in active" id="dadosCli">
-                                        <div class="panel panel-primary">
-                                            <div class="panel panel-heading">
-                                                <h:outputText id="titulo" value="Dados do Cliente"/>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div id="dados">
-                                                    <div class="col-md-12">
-                                                        <h:outputText style="font-family: 'Lato'" id="nomeLabel"
-                                                                      value="Nome Noivo(a):"/>
-                                                        <h:inputText id="nome" label="Nome" styleClass="form-control"
-                                                                     value="#{clientController.client.nome}"
-                                                                     p:placeholder="Ex: Jão, Maria"
-                                                                     maxlength="50"/>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h:outputText id="cpfLabel"
-                                                                      value="CPF:"/>
-                                                        <h:inputText id="cpf" label="cpf" styleClass="form-control"
-                                                                     value="#{clientController.client.cpf}"
-                                                                     p:placeholder="12.345.678-90"
-                                                                     maxlength="50"/>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h:outputText id="telefoneLabel"
-                                                                      value="Telefone:"/>
-                                                        <h:inputText id="telefone" label="Telefone"
-                                                                     styleClass="form-control"
-                                                                     p:placeholder="(DDD)91234-5678"
-                                                                     value="#{clientController.client.telefone}"
-                                                                     maxlength="50"/>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h:outputText id="nascimentoLabel"
-                                                                      value="Data de Nascimento"/>
 
-                                                        <h:inputText id="nascimento" p:type="date"
-                                                                     styleClass="form-control"
-                                                                     p:placeholder="dia/mês/ano"
-                                                                     value="#{clientController.client.dataNascimento}">
-                                                            <f:convertDateTime pattern="yyyy-MM-dd"/>
-                                                        </h:inputText>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <h:outputText id="emailLabel"
-                                                                      value="Email:"/>
-                                                        <h:inputText id="email" p:type="email" styleClass="form-control"
-                                                                     p:placeholder="jão@hightech.com"
-                                                                     value="#{clientController.client.email}"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="endereco">
-                                        <div class="panel panel-primary">
-                                            <div class="panel panel-heading">
-                                                <h:outputText id="titulo2"
-                                                              value="Endereço do Cliente"
-                                                />
-                                            </div>
-                                            <div class="panel-body">
-                                                <div class="col-md-6">
-                                                    <h:outputText id="logradouroLabel"
-                                                                  value="Logradouro:"/>
-                                                    <h:inputText id="logradouro" label="Logradoruro"
-                                                                 styleClass="form-control"
-                                                                 p:placeholder="Ex: Av. Florestal"
-                                                                 value="#{clientController.client.address.logradouro}"
-                                                                 maxlength="50"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h:outputText id="bairroLabel"
-                                                                  value="Bairro:"/>
-                                                    <h:inputText id="bairro" label="Bairro"
-                                                                 styleClass="form-control"
-                                                                 p:placeholder="Ex: Santa Carmélia"
-                                                                 value="#{clientController.client.address.bairro}"
-                                                                 maxlength="50"/>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h:outputText id="complementoLabel"
-                                                                  value="Complemento:"/>
-                                                    <h:inputText id="complemento" label="complemento"
-                                                                 styleClass="form-control"
-                                                                 p:placeholder="Casa, Apartamento etc."
-                                                                 value="#{clientController.client.address.complemento}"
-                                                                 maxlength="50"/>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h:outputText id="numeroLabel"
-                                                                  value="Numero:"/>
-                                                    <h:inputText id="number" p:type="number" p:min="1" p:max="10"
-                                                                 styleClass="form-control" p:placeholder="Ex: 123"
-                                                                 value="#{clientController.client.address.numero}">
-                                                        <f:convertNumber minFractionDigits="0"/>
-                                                    </h:inputText>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h:outputText id="cepLabel"
-                                                                  value="Cep:"/>
-                                                    <h:inputText id="cep" label="Cep" styleClass="form-control"
-                                                                 value="#{clientController.client.address.cep}"
-                                                                 p:placeholder="Ex: 79115-485"
-                                                                 maxlength="50"/>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h:outputLabel for="estado"
-                                                                   value="Estado:"/>
-                                                    <h:selectOneMenu id="estado" filter="true" styleClass="form-control"
-                                                                     value="#{clientController.client.state}"
-                                                                     converter="#{stateConverter}" required="true"
-                                                                     requiredMessage="O campo estado é obrigatório">
-                                                        <f:selectItem noSelectionOption="true"
-                                                                      itemLabel="Selecione um Estado"/>
-                                                        <f:selectItems value="#{clientController.states}" var="state"
-                                                                       itemValue="#{state}" itemLabel="#{state.uf}"/>
-                                                    </h:selectOneMenu>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <h:commandButton styleClass="btn btn-success" data-dismiss="modal"
-                                                         action="#{clientController.save}"
-                                                         value="Pronto!">
-                                            <f:ajax execute="formulario" render="formulario formTabela"></f:ajax>
-                                        </h:commandButton>
-                                        <h:commandButton styleClass="btn btn-danger"
-                                                         rendered="#{clientController.modoEdicao}" data-dismiss="modal"
-                                                         action="#{clientController.cancelar}" value="Cancelar">
-                                            <f:ajax render="formulario"></f:ajax>
-                                        </h:commandButton>
-                                        <h:messages id="msg"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </h:form>
-                    </div>
-                </div>
-            </div>
+
+
 
             <footer class="row">
-                <div class="col-sm-6">
-                    <button class="btn btn-primary  btn-lg" data-toggle="modal" data-target="#NovaOS">Novo Cliente</button>
-                </div>
                 <div class="col-sm-6 paginacao text-right">
                     <ul class="pagination">
                         <li class="disabled"><a href=""><span>«</span></a></li>
