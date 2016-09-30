@@ -107,7 +107,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<h:outputLabel id="pedidoLabel" value="Data do Pedido:"
 								styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-6">
 								<h:inputText id="datapedido" p:type="date"
 									value="#{orderController.order.dataPedido}">
 									<f:convertDateTime pattern="yyyy-MM-dd" />
@@ -118,7 +118,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<h:outputLabel id="entregaLabel" value="Data da Entrega:"
 								styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-6">
 								<h:inputText id="entrega" p:type="date"
 									value="#{orderController.order.dataEntrega}">
 									<f:convertDateTime pattern="yyyy-MM-dd" />
@@ -129,7 +129,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<h:outputLabel id="valorLabel" value="Valor:"
 								styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-6">
 								<h:inputText value="#{orderController.order.valorTotal}">
 									<f:convertNumber minFractionDigits="2" />
 								</h:inputText>
@@ -196,7 +196,7 @@ $(document).ready(function(){
 								style="font-weight: bold;" />
 						</div>
 						<div class="panel-body">
-							<h:panelGrid id="dados3" columns="6">
+					
 
 								<h:outputLabel for="product" value="Produto:" />
 								<h:selectOneMenu id="product" filter="true"
@@ -231,7 +231,7 @@ $(document).ready(function(){
 									<f:selectItems value="#{orderController.embrulhos}" var="em"
 										itemValue="#{em}" itemLabel="#{em.descricao}" />
 								</h:selectOneMenu>
-
+<br />
 								<h:outputText value="Valor Produto:" />
 								<h:inputText value="#{orderController.item.valorProduto}">
 
@@ -297,9 +297,6 @@ $(document).ready(function(){
 									</tbody>
 								</table>
 
-
-
-							</h:panelGrid>
 						</div>
 					</div>
 

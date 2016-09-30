@@ -11,12 +11,12 @@
         <h1><h:outputText id="bemVindo" value="Bem vindo(a) ao sistema."/></h1>
         <h:panelGrid id="gridLoginSenha" columns="2">
           <h:outputText id="loginLabel" value="Login:"/>
-          <h:inputText id="login" value=""/>
+          <h:inputText id="login" value="#{loginController.user.login}"/>
 
           <h:outputText id="senhaLabel" value="Senha:"/>
-          <h:inputSecret id="senha" value=""/>
+          <h:inputSecret id="senha" value="#{loginController.user.senha}"/>
         </h:panelGrid>
-        <h:commandButton id="botao" value="Entrar"/>
+        <h:commandButton id="botao" value="Entrar" action="#{loginController.doEfetuarLogin}"/>
       </h:form>
     </h:body>
 </html>
