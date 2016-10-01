@@ -1,12 +1,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <link rel="stylesheet" href="../resources/css/index.css"/>
-    <script src="../resources/css/bootstrap.min.css"></script>
-    <script src="../resources/fonts"></script>
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
+    <h:head>
+        <script src="../resources/css/bootstrap.min.css"></script>
+        <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../resources/css/index.css"/>
+    </h:head>
 
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav style="font-family: Pacifico" class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu">
@@ -14,13 +15,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#" class="navbar-brand logotipo">
+                <a style="font-family: 'Pacifico'" href="#" class="navbar-brand logotipo">
                     Lari Maia Bem Casados
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="nav navbar-nav">
-                    <li><a href="client.xhtml">Clientes</a></li>
+                    <li><a href="order.xhtml">Novo Pedido</a></li>
+                    <li><a href="clientList.xhtml">Clientes</a></li>
                     <li><a href="listaPedido.xhtml">Pedidos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -37,8 +39,7 @@
                             <ul class="list-unstyled col-sm-8">
                                 <li>Olá, Lari!</li>
                                 <li><a href="user.xhtml">Adicionar Administrador</a></li>
-                                <li><a href="#">Alterar Perfil</a></li>
-                                <li><a href="#">Sair</a></li>
+                                <li><a href="login.xhtml">Sair</a></li>
                             </ul>
                         </div>
                     </li>
@@ -57,6 +58,7 @@
                                 <li><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><a href="state.xhtml">  Novo Estado</a></li>
                                 <li><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><a href="product.xhtml">  Novo Produto</a></li>
                                 <li><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span><a href="ceremonial.xhtml">  Novo Cerimonialista</a></li>
+                                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span><a href="client.xhtml">  Novo Cliente</a></li>
                             </ul>
                         </div>
                     </li>

@@ -15,10 +15,9 @@
     <ui:composition template="template.xhtml">
         <div class="container">
             <ui:define name="container">
-                <h:form id="formulario">
-                    <div class="breadcrumb" align="center">
-                        <h1>Adicionar um Administrador</h1>
-                    </div>
+                <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"/>
+                <h:form  id="formulario">
+                    <h1 class="text-center" style="font-family: 'Pacifico'">Adicionar Admnistrador</h1>
                     <div class="form-group form-group-lg col-lg-8">
                         <label for="email">Nome do Perfil</label>
                         <h:inputText value="#{userController.user.perfil}"
@@ -59,10 +58,7 @@
                 </h:form>
                 <script src="../resources/js/jquery-2.1.4.min.js"></script>
                 <script src="../resources/js/bootstrap.min.js"></script>
-                <script src="../resources/js/bootstrap-datepicker.min.js"></script>
-                <script src="../resources/js/bootstrap-datepicker.pt-BR.min.js"></script>
                 <script src="../resources/js/main.js"></script>
-                <script src="../resources/js/bootbox.min.js"></script>
             </ui:define>
         </div>
     </ui:composition>

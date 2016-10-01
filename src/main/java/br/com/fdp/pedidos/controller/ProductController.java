@@ -33,11 +33,11 @@ public class ProductController {
 		
 	}
 	public void save(){
-		productRepository.save(getProduct());
-		if(!isModoEdicao());
-		products.add(product);
-		product = new Product();
-		setModoEdicao(false);
+        productRepository.save(getProduct());
+        if (!isModoEdicao())
+            products.add(product);
+        product = new Product();
+        setModoEdicao(false);
 	}
 	public void remove(Product product){
 		productRepository.delete(product);

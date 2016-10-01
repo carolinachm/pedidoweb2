@@ -29,13 +29,13 @@ public class Client {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String nome;
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	private String email;
 	private String telefone;
 	private String cpf;
-	private String nomeNoivo;
+	private String nomeNoivos;
+    private String Contratante;
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	private State state;

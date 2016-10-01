@@ -15,9 +15,9 @@
 <ui:composition template="template.xhtml">
     <div class="container">
         <ui:define name="container">
-            <div class="breadcrumb">
-                <h1 align="center">Cadastrar Novo Embrulho</h1>
-            </div>
+            <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"/>
+            <h1 align="center" style="font-family: Pacifico">Cadastrar Novo Embrulho</h1>
+            <br></br>
             <h:form id="formulario">
                 <div class="form-group form-group-lg col-lg-8">
                     <label for="desc">Descrição do Embrulho</label>
@@ -35,66 +35,84 @@
                         </h:inputText>
                     </div>
                 </div>
-
-                <div class="container">
-                    <div class="col-md-6">
-                        <h:commandButton styleClass="btn btn-success btn-lg" action="#{packageController.save}"
-                                         value="Salvar Embrulho">
-                            <f:ajax execute="formulario" render="formulario tabela:tabela2"></f:ajax>
-                        </h:commandButton>
-                    </div>
-                    <div class="col-md-6">
-                        <h:commandButton styleClass="btn btn-danger btn-lg" rendered="#{packageController.modoEdicao}"
-                                         action="#{packageController.cancelar}" value="Cancelar">
-                            <f:ajax render="formulario"></f:ajax>
-                        </h:commandButton>
-                    </div>
+                <div class="col-md-7">
+                    <h:commandButton styleClass="btn btn-success btn-lg" action="#{packageController.save}"
+                                     value="Salvar Embrulho">
+                        <f:ajax execute="formulario" render="formulario tabela:tabela2"></f:ajax>
+                    </h:commandButton>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                        Mostrar Embrulhos
+                    </button>
+                    <h:commandButton styleClass="btn btn-danger btn-lg" rendered="#{packageController.modoEdicao}"
+                                     action="#{packageController.cancelar}" value="Cancelar">
+                        <f:ajax render="formulario"></f:ajax>
+                    </h:commandButton>
                 </div>
             </h:form>
             <br></br>
             <h:messages id="msg"/>
 
-            <div class="breadcrumb">
-                <h1 align="center">Embrulhos Cadastrados</h1>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Embrulhos Cadastrados</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:form id="tabela">
+                                <h:dataTable id="tabela2" value="#{packageController.embrulhos}"
+                                             var="e" styleClass="table table-bordered table-striped">
+                                    <h:column id="columnCodigo">
+                                        <f:facet name="header">
+                                            <h:outputText id="headerCodigo" value="Codigo"/>
+                                        </f:facet>
+                                        <h:outputText id="valorCodigo" value="#{e.id}"/>
+                                    </h:column>
+                                    <h:column id="columnNome">
+                                        <f:facet name="header">
+                                            <h:outputText id="headerDescricao" value="Descricao"/>
+                                        </f:facet>
+                                        <h:outputText id="valorDescricao" value="#{e.descricao}"/>
+                                    </h:column>
+
+                                    <h:column id="columnValor">
+                                        <f:facet name="header">
+                                            <h:outputText id="headerValor" value="Valor"/>
+                                        </f:facet>
+                                        <h:outputText id="valorValor" value="#{e.valorPackage}"/>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Ação</f:facet>
+                                        <h:commandButton styleClass="btn btn-danger"
+                                                         action="#{packageController.remove(e)}"
+                                                         value="Excluir" onclick="return window.confirm('Certeza?')">
+                                            <f:ajax render="formulario tabela:tabela2"/>
+                                        </h:commandButton>
+
+                                        <h:commandButton styleClass="btn btn-warning"
+                                                         action="#{packageController.editar(e)}"
+                                                         value="Editar">
+                                            <f:passThroughAttribute name="data-dismiss" value="modal"/>
+                                            <f:ajax render="formulario"/>
+                                        </h:commandButton>
+
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h:form id="tabela">
-                <h:dataTable id="tabela2" value="#{packageController.embrulhos}"
-                             var="e" styleClass="table table-bordered table-striped">
-                    <h:column id="columnCodigo">
-                        <f:facet name="header">
-                            <h:outputText id="headerCodigo" value="Codigo"/>
-                        </f:facet>
-                        <h:outputText id="valorCodigo" value="#{e.id}"/>
-                    </h:column>
-                    <h:column id="columnNome">
-                        <f:facet name="header">
-                            <h:outputText id="headerDescricao" value="Descricao"/>
-                        </f:facet>
-                        <h:outputText id="valorDescricao" value="#{e.descricao}"/>
-                    </h:column>
 
-                    <h:column id="columnValor">
-                        <f:facet name="header">
-                            <h:outputText id="headerValor" value="Valor"/>
-                        </f:facet>
-                        <h:outputText id="valorValor" value="#{e.valorPackage}"/>
-                    </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Ação</f:facet>
-                        <h:commandButton styleClass="btn btn-danger" action="#{packageController.remove(e)}"
-                                         value="Excluir" onclick="return window.confirm('Certeza?')">
-                            <f:ajax render="formulario tabela:tabela2"/>
-                        </h:commandButton>
-
-                        <h:commandButton styleClass="btn btn-warning" action="#{packageController.editar(e)}"
-                                         value="Editar">
-                            <f:ajax render="formulario"/>
-                        </h:commandButton>
-
-                    </h:column>
-                </h:dataTable>
-            </h:form>
             <script src="../resources/js/jquery-2.1.4.min.js"></script>
             <script src="../resources/js/bootstrap.min.js"></script>
             <script src="../resources/js/bootstrap-datepicker.min.js"></script>
