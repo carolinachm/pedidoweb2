@@ -35,11 +35,12 @@ public class Client {
 	private String email;
 	private String telefone;
 	private String cpf;
-	private String nomeNoivo;
+	private String nomeNoivos;
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	private State state;
 	@Embedded
 	private Address address = new Address();
+	private String contratante;
 
 }
