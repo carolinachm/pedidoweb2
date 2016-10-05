@@ -1,99 +1,133 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<head>
+    <script src="../resources/css/bootstrap.min.css"></script>
+    <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../resources/css/index.css"/>
+</head>
 
-<ui:composition template="/template.xhtml">
-	<ui:define name="menu">
-		<h:commandLink value="Inicio" action="/template.xhtml" />
-	</ui:define>
-    <ui:define name="conteudo">
-	<h:form id="formulario">
-		<h:outputText id="titulo" value="Cadastro de Produto"
-			style="font-weight: bold;" />
-		<h:panelGrid id="dados" columns="2">
-			<h:outputText id="descricaoLabel" value="Descrição:" />
-			<h:inputText id="descricao" label="Descrição:"
-				value="#{productController.product.descricao}" maxlength="50" />
-				
-				<h:outputText id="quantidadeLabel" value="Quantidade:" />
-			<h:inputText id="quantidade" label="Quantidade:"
-				value="#{productController.product.quantidade}" maxlength="50" />
+<ui:composition template="template.xhtml">
+    <div class="container">
+        <ui:define name="container">
+            <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"/>
+            <h1 class="text-center" style="font-family: 'Pacifico'">Cadastrar Produto</h1>
+            <br></br>
+            <h:form id="formulario">
+                <div class="form-group form-group-lg col-lg-8">
+                    <label for="email">Descrição do Produto</label>
+                    <h:inputText value="#{productController.product.descricao}"
+                                 styleClass="form-control" id="email" p:placeholder="Digite a descrição do produto"/>
+                </div>
+                <div class="form-group form-group-lg col-md-8">
+                    <label for="a">Quantidade</label>
+                    <h:inputText value="#{productController.product.quantidade}"
+                                 styleClass="form-control" id="a" p:placeholder="Qual a quantia desse produto?"/>
+                </div>
+                <div class="form-group form-group-lg col-md-8">
+                    <label for="b">Preço</label>
+                    <h:inputText value="#{productController.product.valor}"
+                                 styleClass="form-control" id="b" p:type="number"
+                                 p:placeholder="Qual o preço do produto?"/>
+                </div>
+                <div class="col-md-7">
+                    <h:commandButton styleClass="btn btn-success btn-lg" action="#{productController.save}"
+                                     value="Salvar"
+                                     class="btn btn-success btn-lg">
+                        <f:ajax execute="formulario" render="formulario tabela:tabela2"></f:ajax>
+                    </h:commandButton>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                        Mostrar Produtos
+                    </button>
+                    <h:commandButton styleClass="btn btn-danger btn-lg" rendered="#{productController.modoEdicao}"
+                                     action="#{productController.cancelar}" value="Cancelar">
+                        <f:ajax render="formulario"></f:ajax>
+                    </h:commandButton>
+                </div>
 
-			<h:outputText id="valorLabel" value="Valor:" />
-			<h:inputText id="valor" label="Valor:"
-				value="#{productController.product.valor}" maxlength="50">
-				<f:convertNumber minFractionDigits="2" />
-			</h:inputText>
 
-		</h:panelGrid>
-		<h:panelGrid columns="2">
-			<h:commandButton action="#{productController.save}" value="Salvar" class="btn waves-effect waves-light">
-				<f:ajax execute="formulario" render="dados tabela" ></f:ajax>
-			</h:commandButton>
+            </h:form>
 
-			<h:commandButton rendered="#{productController.modoEdicao}"
-				action="#{productController.cancelar}" value="Cancelar">
-				<f:ajax render="formulario"></f:ajax>
-			</h:commandButton>
-		</h:panelGrid>
 
-		<h:messages id="msg" />
 
-		<h:dataTable id="tabela" value="#{productController.products}"
-			var="p" cellpadding="5" cellspacing="3" first="0" rows="5" frame="hsides"
-			rules="all" style="width: 100%" border="10" class="responsive-table">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Produtos Cadastrados</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:form id="tabela">
+                                <h:dataTable id="tabela2" value="#{productController.products}"
+                                             var="p" styleClass="table table-striped table-bordered table-hover">
 
-			<f:facet name="header">
-				<h:outputText value="Produtos" />
-			</f:facet>
+                                    <h:column id="columnCodigo">
+                                        <f:facet name="header">
+                                            <h:outputText id="headerCodigo" value="Codigo"/>
+                                        </f:facet>
+                                        <h:outputText id="valorCodigo" value="#{p.id}"/>
+                                    </h:column>
+                                    <h:column id="columnDescrição">
+                                        <f:facet name="header">
+                                            <h:outputText id="headerDescrição" value="Descrição"/>
+                                        </f:facet>
+                                        <h:outputText id="valorDescrição" value="#{p.descricao}"/>
+                                    </h:column>
 
-			<h:column id="columnCodigo">
-				<f:facet name="header">
-					<h:outputText id="headerCodigo" value="Codigo" />
-				</f:facet>
-				<h:outputText id="valorCodigo" value="#{p.id}" />
-			</h:column>
-			<h:column id="columnDescrição">
-				<f:facet name="header">
-					<h:outputText id="headerDescrição" value="Descrição" />
-				</f:facet>
-				<h:outputText id="valorDescrição" value="#{p.descricao}" />
-			</h:column>
-			
-			<h:column id="columnQuantidade">
-				<f:facet name="header">
-					<h:outputText id="headerQuantidade" value="Quantidade" />
-				</f:facet>
-				<h:outputText id="valorQuantidade" value="#{p.quantidade}" />
-			</h:column>
+                                    <h:column id="columnQuantidade">
+                                        <f:facet name="header">
+                                            <h:outputText id="headerQuantidade" value="Quantidade"/>
+                                        </f:facet>
+                                        <h:outputText id="valorQuantidade" value="#{p.quantidade}"/>
+                                    </h:column>
 
-			<h:column id="columnValor">
-				<f:facet name="header">
-					<h:outputText id="headerValor" value="Valor" />
-				</f:facet>
-				<h:outputText id="valorValor" value="#{p.valor}" />
-			</h:column>
+                                    <h:column id="columnValor">
+                                        <f:facet name="header">
+                                            <h:outputText id="headerValor" value="Valor"/>
+                                        </f:facet>
+                                        <h:outputText id="valorValor" value="R$#{p.valor}"/>
+                                    </h:column>
 
-			<h:column>
-				<f:facet name="header">Ação</f:facet>
-				<h:commandButton action="#{productController.remove(p)}"
-					value="Excluir" onclick="return window.confirm('Certeza?')">
-					<f:ajax render="@form" />
-				</h:commandButton>
+                                    <h:column>
+                                        <f:facet name="header">Ação</f:facet>
+                                        <h:commandButton  styleClass="btn btn-danger" action="#{productController.remove(p)}"
+                                                         value="Excluir" onclick="return window.confirm('Certeza?')">
+                                            <f:ajax render="tabela:tabela2"/>
+                                        </h:commandButton>
+                                        <div class="col-md-1"/>
+                                        <h:commandButton styleClass="btn btn-warning" action="#{productController.editar(p)}"
+                                                         value="Editar">
+                                            <f:passThroughAttribute name="data-dismiss" value="modal"/>
+                                            <f:ajax render="formulario"/>
+                                        </h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-				<h:commandButton action="#{productController.editar(p)}"
-					value="Editar">
-					<f:ajax render="@form" />
-				</h:commandButton>
+            <h:messages id="msg"/>
 
-			</h:column>
-		</h:dataTable>
-	</h:form>
- </ui:define>
-  </ui:composition>
+
+            <script src="../resources/js/jquery-2.1.4.min.js"></script>
+            <script src="../resources/js/bootstrap.min.js"></script>
+            <script src="../resources/js/main.js"></script>
+        </ui:define>
+    </div>
+</ui:composition>
 </html>

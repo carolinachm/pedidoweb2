@@ -44,14 +44,14 @@
 						<f:facet name="header">
 							<h:outputText id="headerContratante" value="Contratante" />
 						</f:facet>
-						<h:outputText id="valorContratante" value="#{c.contratante}" />
+						<h:outputText id="valorContratante" value="#{c.nome}" />
 					</h:column>
 
 					<h:column id="columnNome">
 						<f:facet name="header">
 							<h:outputText id="headerNome" value="Noivos" />
 						</f:facet>
-						<h:outputText id="valorNome" value="#{c.nomeNoivos}" />
+						<h:outputText id="valorNome" value="#{c.nomeNoivo}" />
 					</h:column>
 
 					<h:column id="columnCPF">
@@ -119,14 +119,14 @@
 													value="Nome do/da Contratante:" />
 												<h:inputText id="contratante" label="Nome"
 													styleClass="form-control "
-													value="#{clientController.client.contratante}"
+													value="#{clientController.client.nome}"
 													p:placeholder="Ex: Qual o nome dele/dela?" maxlength="50" />
 											</div>
 											<div class="form-group form-group-lg col-md-12">
 												<h:outputLabel id="nomeLabel" value="Nome dos Noivos:" />
 												<h:inputText id="nome" label="Nome"
 													styleClass="form-control "
-													value="#{clientController.client.nomeNoivos}"
+													value="#{clientController.client.nomeNoivo}"
 													p:placeholder="Ex: Larisce, Virmerson..." maxlength="50" />
 											</div>
 											<div class="form-group form-group-lg col-md-4">
