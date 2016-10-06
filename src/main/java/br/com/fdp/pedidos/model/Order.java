@@ -48,5 +48,7 @@ public class Order {
 	private Ceremonial ceremonial;
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="order", fetch=FetchType.EAGER)
 	private List<ItemPedido> itens =  new ArrayList<>();
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="order", fetch=FetchType.EAGER)
+	private List<Payment> payments = new ArrayList<Payment>();
 
 }

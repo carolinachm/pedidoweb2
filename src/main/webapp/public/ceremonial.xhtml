@@ -1,78 +1,171 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/public/template.xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" template="template.xhtml">
 
-	
-		<h:form id="formulario">
-			<h:outputText id="titulo" value="Cadastro de Cerimonial"
-				style="font-weight: bold;" />
-			<h:panelGrid id="dados" columns="2">
-				<h:outputText id="nomeLabel" value="Nome:" />
-				<h:inputText id="nome" label="Nome:"
-					value="#{ceremonialController.ceremonial.nome}" maxlength="50" />
 
-				<h:outputText id="telefoneLabel" value="Telefone:" />
-				<h:inputText id="telefone" label="Telefone:"
-					value="#{ceremonialController.ceremonial.telefone}" maxlength="50" />
 
-			</h:panelGrid>
-			<h:panelGrid columns="2">
-				<h:commandButton action="#{ceremonialController.save}"
-					value="Salvar">
-					<f:ajax execute="formulario" render="dados tabela"></f:ajax>
-				</h:commandButton>
+	<div class="container">
+		<ui:define name="container">
+			<div class="col-xs-12 col-md-6">
+				<h1 style="font-family: 'Lato'">Cerimonial</h1>
+			</div>
+			<h:form id="formTabela">
+				<h:dataTable id="tabela2"
+					value="#{ceremonialController.ceremonials}" var="ce"
+					styleClass="dados-os table table-striped table-bordered table-hover">
+					<h:column id="columnCodigo">
+						<f:facet name="header">
+							<h:outputText style="font-family: 'Lato' " id="headerCodigo"
+								value="Codigo" />
+						</f:facet>
+						<h:outputText id="valorCodigo" value="#{ce.id}" />
+					</h:column>
 
-				<h:commandButton rendered="#{ceremonialController.modoEdicao}"
-					action="#{ceremonialController.cancelar}" value="Cancelar">
-					<f:ajax render="formulario"></f:ajax>
-				</h:commandButton>
-			</h:panelGrid>
+					<h:column id="columnNome">
+						<f:facet name="header">
+							<h:outputText style="font-family: 'Lato'" id="headerNome"
+								value="Nome" />
+						</f:facet>
+						<h:outputText id="valorNome" value="#{ce.nome}" />
+					</h:column>
 
-			<h:messages id="msg" />
 
-			<h:dataTable id="tabela" value="#{ceremonialController.ceremonials}"
-				var="ce" cellpadding="5" cellspacing="3" first="0" rows="5"
-				frame="hsides" rules="all" style="width: 100%" border="10"
-				class="responsive-table">
+					<h:column id="columnTelefone">
+						<f:facet name="header">
+							<h:outputText style="font-family: 'Lato'" id="headerTelefone"
+								value="Telefone" />
+						</f:facet>
+						<h:outputText style="font-family: 'Lato'" id="valorTelefone"
+							value="#{ce.telefone}" />
+					</h:column>
 
-				<f:facet name="header">
-					<h:outputText value="Cerimonial" />
-				</f:facet>
+					<h:column>
+						<f:facet name="header">Ação</f:facet>
+						<h:commandButton styleClass="btn btn-danger"
+							action="#{ceremonialController.remove(ce)}" value="Excluir"
+							onclick="">
+							<f:passThroughAttribute name="data-toggle" value="modal" />
+							<f:passThroughAttribute name="data-target"
+								value="#confirm-delete" />
+							<f:ajax render="formTabela:tabela2" />
+						</h:commandButton>
 
-				<h:column id="columnCodigo">
-					<f:facet name="header">
-						<h:outputText id="headerCodigo" value="Codigo" />
-					</f:facet>
-					<h:outputText id="valorCodigo" value="#{ce.id}" />
-				</h:column>
-				<h:column id="columnNome">
-					<f:facet name="header">
-						<h:outputText id="headerNome" value="Nome" />
-					</f:facet>
-					<h:outputText id="valorNome" value="#{ce.nome}" />
-				</h:column>
+						<h:commandButton styleClass="btn btn-primary"
+							action="#{ceremonialController.editar(ce)}" value="Editar">
+							<f:ajax render="formulario formTabela" />
+							<f:passThroughAttribute name="data-toggle" value="modal" />
+							<f:passThroughAttribute name="data-target" value="#NovaOS" />
+						</h:commandButton>
 
-				<h:column id="columnTelefone">
-					<f:facet name="header">
-						<h:outputText id="headerTelefone" value="Telefone" />
-					</f:facet>
-					<h:outputText id="valorTelefone" value="#{ce.telefone}" />
-				</h:column>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+			<div class="modal fade" id="NovaOS">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" data-dismiss="modal" class="close">
+								<span></span>
+							</button>
+							<h4 class="modal-title">Cadastrar Novo Cerimonial</h4>
+						</div>
+						<h:form id="formulario" style="font-family: 'Lato', Sans-Serif">
+							<div class="modal-body">
 
-				<h:column>
-				<f:facet name="header">Ação</f:facet>
-				<h:commandButton action="#{ceremonialController.remove(ce)}" value="Excluir" onclick="return window.confirm('Certeza?')" >
-					<f:ajax  render="@form"/>
-				</h:commandButton>
-				
-				<h:commandButton action="#{ceremonialController.editar(ce)}" value="Editar" >
-					<f:ajax  render="@form"/>
-				</h:commandButton>
-				
-			</h:column>
-			</h:dataTable>
-		</h:form>
-	</ui:composition>
+								<div class="panel panel-default">
+									<div class="panel panel-heading">
+										<h:outputText id="titulo" value="Dados do Cerimonial"
+											style="font-family: 'Lato'" />
+									</div>
+									<div class="panel-body">
+										<div id="dados">
+											<div class="col-md-8">
+												<h:outputText style="font-family: 'Lato'" id="nomeLabel"
+													value="Nome:" />
+												<h:inputText id="nome" label="Nome"
+													styleClass="form-control"
+													value="#{ceremonialController.ceremonial.nome}"
+													p:placeholder="Ex: Jão" maxlength="50" />
+											</div>
 
+											<div class="col-md-4">
+												<h:outputText style="font-family: 'Lato'" id="telefoneLabel"
+													value="Telefone:" />
+												<h:inputText id="telefone" label="Telefone"
+													styleClass="form-control" p:placeholder="(DDD)91234-5678"
+													value="#{ceremonialController.ceremonial.telefone}"
+													maxlength="50" />
+											</div>
+
+
+										</div>
+									</div>
+
+
+									<div class="modal-footer">
+										<h:commandButton styleClass="btn btn-success"
+											data-dismiss="modal" action="#{ceremonialController.save}"
+											value="Salvar">
+											<f:ajax execute="formulario" render="formulario formTabela"></f:ajax>
+										</h:commandButton>
+										<h:commandButton styleClass="btn btn-danger"
+											rendered="#{ceremonialController.modoEdicao}"
+											data-dismiss="modal"
+											action="#{ceremonialController.cancelar}" value="Cancelar">
+											<f:ajax render="formulario"></f:ajax>
+										</h:commandButton>
+										<h:messages id="msg" />
+									</div>
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+			<footer class="row">
+				<div class="col-sm-6">
+					<button class="btn btn-success" data-toggle="modal"
+						data-target="#NovaOS">Novo Cerimonial</button>
+				</div>
+				<div class="col-sm-6 paginacao text-right">
+					<ul class="pagination">
+						<li class="disabled"><a href=""><span>«</span></a></li>
+						<li class="active"><a href="">1</a></li>
+						<li><a href="">2</a></li>
+						<li><a href="">3</a></li>
+						<li><a href="">4</a></li>
+						<li><a href="">5</a></li>
+						<li><a href=""><span>»</span></a></li>
+					</ul>
+				</div>
+			</footer>
+			<div class="modal fade" id="confirm-delete">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="h3">Confirmação de exclusão</h3>
+						</div>
+						<div class="modal-body">
+							<h4 class="h4">Tem certeza que deseja remover este
+								ceremonial?</h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+							<a class="btn btn-success btn-ok">Sim</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script>
+                $('#confirm-delete').on('show.bs.modal', function(e) {
+                    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                });
+            </script>
+		</ui:define>
+	</div>
+</ui:composition>

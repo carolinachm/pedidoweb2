@@ -29,7 +29,7 @@ public class Client {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String nome;
+	private String contratante;
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	private String email;

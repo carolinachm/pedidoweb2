@@ -1,67 +1,30 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <link rel="stylesheet" href="../resources/css/index.css"/>
-    <script src="../resources/css/bootstrap.min.css"></script>
-    <script src="../resources/fonts"></script>
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
 
-    <nav class="navbar navbar-inverse navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="register.xhtml" class="navbar-brand logotipo">
-                    Lari Maia Bem Casados
-                </a>
-            </div>
-            <div class="collapse navbar-collapse" id="menu">
-                <ul class="nav navbar-nav">
-                    <li><a href="clientList.xhtml">Clientes</a></li>
-                    <li><a href="listaPedido.xhtml">Pedidos</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="user.xhtml" class="dropdown-toggle" data-toggle="dropdown">
-                            Minha Conta
-                            <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu perfil">
-                            <div class="col-sm-4 hidden-xs">
-                                <img class="img-responsive img-rounded"
-                                     src="http://publicdomainvectors.org/photos/1400527615.png"/>
-                            </div>
-                            <ul class="list-unstyled col-sm-8">
-                                <li>Olá, Lari!</li>
-                                <li><a href="#">Sair</a></li>
-                                <li><a href="user.xhtml">Adicionar Administrador</a></li>
-                                <li><a href="#">Alterar Perfil</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        <a href="user.xhtml" class="dropdown-toggle" data-toggle="dropdown">
-                            Cadastrar
-                            <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu perfil">
-                            <ul class="list-unstyled col-sm-8">
-                                <li>O quê?</li>
 
-                                <li><span class="glyphicon glyphicon-gift" aria-hidden="true"></span><a href="embrulho.xhtml">  Novo Embrulho</a></li>
-                                <li><span class="glyphicon glyphicon-flag" aria-hidden="true"></span><a href="state.xhtml">  Novo Estado</a></li>
-                                <li><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><a href="product.xhtml">  Novo Produto</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastro
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/public/client.xhtml">Cliente</a></li>
+          <li><a href="/public/ceremonial.xhtml">Cerimonial</a></li>
+          <li><a href="/public/state.xhtml">Estado</a></li>
+          <li><a href="/public/product.xhtml">Produto</a></li> 
+          <li><a href="public/user.xhtml">Usuario</a></li> 
+        </ul>
+      </li>
+      <li><a href="/public/order.xhtml">Pedido</a></li> 
+     
+    </ul>
+  </div>
+</nav>
 
 </ui:composition>

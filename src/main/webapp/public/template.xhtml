@@ -1,27 +1,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:util="http://java.sun.com/jsf/composite/util">
-  
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-    <title>
-        <ui:insert name="title">
-           Bem Casado
-        </ui:insert>
-    </title>
-     <h:outputScript library="js" name="jquery-2.1.4.min.js" />
-     <h:outputScript library="js" name="typeahead.js" />
-      <h:outputScript library="js" name="typeahead.min.js" />
-    <h:outputStylesheet library="css" name="bootstrap.min.css" />
-    <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
-    <h:outputScript library="js" name="bootstrap.min.js" />
-   
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:util="http://java.sun.com/jsf/composite/util">
 
-    <script>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title><ui:insert name="title">
+           Bem Casado
+        </ui:insert></title>
+        
+        
+<script src="../resources/js/jquery-2.1.4.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
+	<script src="../resources/js/bootstrap-datepicker.min.js"></script>
+	<script src="../resources/js/bootstrap-datepicker.pt-BR.min.js"></script>
+	<script src="../resources/js/main.js"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"></script>
+<script>
+			$(document).ready(function() {
+			    $('#tabela2').DataTable();
+			} );
+            </script>
+
+
+	<script>
         $a = jQuery.noConflict();
         $a(document).ready(function() {
             var heightWindow = $a(window).height();
@@ -32,20 +40,25 @@
             }
         });
      </script>
-      
+
 </h:head>
 <h:body>
-    <div>
-        <ui:insert name="nav_bar">
-          <ui:include src="top_bar.xhtml"></ui:include>
-        </ui:insert>
-    </div>
-      
-    <div class="container" >
-        <ui:insert name="container">
-          
-        </ui:insert>
-    </div>    
-    
+	<div>
+		<ui:insert name="nav_bar">
+			<ui:include src="top_bar.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+
+	<div class="container">
+		<ui:insert name="container">
+
+		</ui:insert>
+	</div>
+	
+	<script>
+                $('#confirm-delete').on('show.bs.modal', function(e) {
+                    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                });
+            </script>
 </h:body>
 </html>

@@ -61,7 +61,7 @@
 									<f:selectItem noSelectionOption="true"
 										itemLabel="Selecione um cliente" />
 									<f:selectItems value="#{orderController.clients}" var="client"
-										itemValue="#{client}" itemLabel="#{client.nome}" />
+										itemValue="#{client}" itemLabel="#{client.contratante}" />
 								</h:selectOneMenu>
 							</div>
 						</div>
@@ -197,7 +197,7 @@
 									<f:selectItem noSelectionOption="true"
 										itemLabel=".:Selecione um pedido:. " />
 									<f:selectItems value="#{orderController.orders}" var="order"
-										itemValue="#{order}" itemLabel="#{order.client.nome}" />
+										itemValue="#{order}" itemLabel="#{order.client.contratante}" />
 								</h:selectOneMenu>
 
 								<h:outputLabel for="embrulho" value="Embrulho:" />
@@ -247,25 +247,25 @@
 			</h:column>
 									<h:column>
 										<f:facet name="header">Produto</f:facet>
-				#{item.product.getDescricao()}
+				#{item.product.descricao}
 			</h:column>
 
 
 									<h:column>
 										<f:facet name="header">Pedido</f:facet>
-				#{item.order.client.getNome()}
+				#{item.order.client.contratante}
 			</h:column>
 									<h:column>
 										<f:facet name="header">Valor Produto</f:facet>
-				#{item.getValorProduto()}
+				#{item.valorProduto}
 			</h:column>
 									<h:column>
 										<f:facet name="header">Valor Embrulho</f:facet>
-				#{item.getValorEmbrulho()}
+				#{item.valorEmbrulho}
 			</h:column>
 									<h:column>
 										<f:facet name="header">Quantidade</f:facet>
-				#{item.getQuantidade()}
+				#{item.quantidade}
 			</h:column>
 
 									<h:column>
