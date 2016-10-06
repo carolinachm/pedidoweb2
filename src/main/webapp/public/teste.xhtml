@@ -11,61 +11,55 @@
 	<div class="container">
 		<ui:define name="container">
 			<div class="col-xs-12 col-md-6">
-				<h1 style="font-family: 'Lato'">Clientes</h1>
+				<h1 style="font-family: 'Lato'">Usuario</h1>
 			</div>
 			<h:form id="formTabela">
-				<h:dataTable id="tabela2" value="#{clientController.clients}"
-					var="c"
+				<h:dataTable id="tabela2" value="#{userController.users}" var="u"
 					styleClass="dados-os table table-striped table-bordered table-hover">
 					<h:column id="columnCodigo">
 						<f:facet name="header">
 							<h:outputText style="font-family: 'Lato' " id="headerCodigo"
 								value="Codigo" />
 						</f:facet>
-						<h:outputText id="valorCodigo" value="#{c.id}" />
+						<h:outputText id="valorCodigo" value="#{u.id}" />
 					</h:column>
 
-					<h:column id="columnNome">
+					<h:column id="columnLogin">
 						<f:facet name="header">
-							<h:outputText style="font-family: 'Lato'" id="headerNome"
-								value="Nome" />
+							<h:outputText style="font-family: 'Lato'" id="headerLogin"
+								value="Login" />
 						</f:facet>
-						<h:outputText id="valorNome" value="#{c.nome}" />
+						<h:outputText id="valorLogin" value="#{u.login}" />
 					</h:column>
 
-					<h:column id="columnCPF">
+					<h:column id="columnSenha">
 						<f:facet name="header">
-							<h:outputText id="headerCPF" style="font-family: 'Lato'"
-								value="CPF" />
+							<h:outputText style="font-family: 'Lato'" id="headerSenha"
+								value="Senha" />
 						</f:facet>
-						<h:outputText id="valorCPF" value="#{c.cpf}" />
+						<h:outputText id="valorSenha" value="#{u.Senha}" />
 					</h:column>
-					<h:column id="columnTelefone">
-						<f:facet name="header">
-							<h:outputText style="font-family: 'Lato'" id="headerTelefone"
-								value="Telefone" />
-						</f:facet>
-						<h:outputText style="font-family: 'Lato'" id="valorTelefone"
-							value="#{c.telefone}" />
-					</h:column>
-					<h:column id="columnEmail">
-						<f:facet name="header">
-							<h:outputText style="font-family: 'Lato'" id="headerEmail"
-								value="Email" />
-						</f:facet>
-						<h:outputText id="email2" value="#{c.email}" />
 
-					</h:column>
-					<h:column id="columnNoivo">
+					<h:column id="columnPerfil">
 						<f:facet name="header">
-							<h:outputText id="headerNoivo" value="Noivo" />
+							<h:outputText style="font-family: 'Lato'" id="headerPerfil"
+								value="Perfil" />
 						</f:facet>
-						<h:outputText id="valorNoivo" value="#{c.nomeNoivo}" />
+						<h:outputText id="valorPerfil" value="#{u.Perfil}" />
 					</h:column>
+
+					<h:column id="columnAtivo">
+						<f:facet name="header">
+							<h:outputText style="font-family: 'Lato'" id="headerAtivo"
+								value="Ativol" />
+						</f:facet>
+						<h:outputText id="valorAtivo" value="#{u.ativo}" />
+					</h:column>
+
 					<h:column>
 						<f:facet name="header">Ação</f:facet>
 						<h:commandButton styleClass="btn btn-danger"
-							action="#{clientController.remove(c)}" value="Excluir" onclick="">
+							action="#{userController.remove(ce)}" value="Excluir" onclick="">
 							<f:passThroughAttribute name="data-toggle" value="modal" />
 							<f:passThroughAttribute name="data-target"
 								value="#confirm-delete" />
@@ -73,7 +67,7 @@
 						</h:commandButton>
 
 						<h:commandButton styleClass="btn btn-primary"
-							action="#{clientController.editar(c)}" value="Editar">
+							action="#{userController.editar(ce)}" value="Editar">
 							<f:ajax render="formulario formTabela" />
 							<f:passThroughAttribute name="data-toggle" value="modal" />
 							<f:passThroughAttribute name="data-target" value="#NovaOS" />
@@ -89,317 +83,64 @@
 							<button type="button" data-dismiss="modal" class="close">
 								<span></span>
 							</button>
-							<h4 class="modal-title">Cadastrar Novo Cliente</h4>
+							<h4 class="modal-title">Cadastrar Novo Usuario</h4>
 						</div>
 						<h:form id="formulario" style="font-family: 'Lato', Sans-Serif">
 							<div class="modal-body">
-								<div class="navegacao-abas">
-									<ul class="nav nav-tabs">
-										<li class="active"><a href="#dadosCli" data-toggle="tab">Dados
-												do Cliente</a></li>
-										<li><a href="#endereco" data-toggle="tab">Endereço do
-												Cliente</a></li>
-									</ul>
-								</div>
-								<div class="tab-content">
-									<div class="tab-pane fade in active" id="dadosCli">
-										<div class="panel panel-default">
-											<div class="panel panel-heading">
-												<h:outputText id="titulo" value="Dados do Cliente"
-													style="font-family: 'Lato'" />
-											</div>
-											<div class="panel-body">
-												<div id="dados">
-													<div class="col-md-8">
-														<h:outputText style="font-family: 'Lato'" id="nomeLabel"
-															value="Nome:" />
-														<h:inputText id="nome" label="Nome"
-															styleClass="form-control"
-															value="#{clientController.client.nome}"
-															p:placeholder="Ex: Jão" maxlength="50" />
-													</div>
-													<div class="col-md-4">
-														<h:outputText style="font-family: 'Lato'" id="cpfLabel"
-															value="CPF:" />
-														<h:inputText id="cpf" label="cpf"
-															styleClass="form-control"
-															value="#{clientController.client.cpf}"
-															p:placeholder="12.345.678-90" maxlength="50" />
-													</div>
-													<div class="col-md-8">
-														<h:outputText style="font-family: 'Lato'" id="noivoLabel"
-															value="Nome Noivo:" />
-														<h:inputText id="noivo" label="Nome Noivo"
-															styleClass="form-control" p:placeholder="Ex: Jão"
-															value="#{clientController.client.nomeNoivo}"
-															maxlength="50" />
-													</div>
-													<div class="col-md-4">
-														<h:outputText style="font-family: 'Lato'"
-															id="telefoneLabel" value="Telefone:" />
-														<h:inputText id="telefone" label="Telefone"
-															styleClass="form-control" p:placeholder="(DDD)91234-5678"
-															value="#{clientController.client.telefone}"
-															maxlength="50" />
-													</div>
-													<div class="col-md-4">
-														<h:outputText style="font-family: 'Lato'"
-															id="nascimentoLabel" value="Data de Nascimento" />
 
-														<h:inputText id="nascimento" p:type="date"
-															styleClass="form-control" p:placeholder="dia/mês/ano"
-															value="#{clientController.client.dataNascimento}">
-															<f:convertDateTime pattern="yyyy-MM-dd" />
-														</h:inputText>
-													</div>
-													<div class="col-md-8">
-														<h:outputText style="font-family: 'Lato'" id="emailLabel"
-															value="Email:" />
-														<h:inputText id="email" p:type="email"
-															styleClass="form-control"
-															p:placeholder="jão@hightech.com"
-															value="#{clientController.client.email}" />
-													</div>
-												</div>
+								<div class="panel panel-default">
+									<div class="panel panel-heading">
+										<h:outputText id="titulo" value="Dados do Usuario"
+											style="font-family: 'Lato'" />
+									</div>
+									<div class="panel-body">
+										<div id="dados">
+											<div class="col-md-8">
+												<h:outputText style="font-family: 'Lato'" id="loginLabel"
+													value="Login:" />
+												<h:inputText id="login" label="Login"
+													styleClass="form-control"
+													value="#{userController.user.login}" p:placeholder="login"
+													maxlength="50" />
 											</div>
+
+											<div class="col-md-4">
+												<h:outputText style="font-family: 'Lato'" id="senhaLabel"
+													value="Senha:" />
+												<h:inputSecret value="#{userController.user.senha}"
+													styleClass="form-control" id="b"
+													p:placeholder="Digite uma senha(Dica: não use senhas de outros lugares)" />
+											</div>
+											
+											<div class="col-md-4">
+												<h:outputText style="font-family: 'Lato'" id="perfilLabel"
+													value="Perfil:" />
+												<h:inputText value="#{userController.user.pefil}"
+													styleClass="form-control" id="b"
+													p:placeholder="Digite o nome do perfil..." />
+											</div>
+											
+												<div class="col-md-4">
+												<h:outputText style="font-family: 'Lato'" id="ativoLabel"
+													value="Ativo:" />
+												 <h:selectBooleanCheckbox styleClass="checkbox" id="c" value="#{userController.user.ativo}"/>
+											</div>
+											
+
+
 										</div>
 									</div>
-									<div class="tab-pane fade" id="endereco">
-										<div class="panel panel-default">
-											<div class="panel panel-heading">
-												<h:outputText style="font-family: 'Lato'" id="titulo2"
-													value="Endereço do Cliente" />
-											</div>
-											<div class="panel-body">
-												<div class="col-md-6">
-													<h:outputText style="font-family: 'Lato'"
-														id="logradouroLabel" value="Logradouro:" />
-													<h:inputText id="logradouro" label="Logradoruro"
-														styleClass="form-control"
-														p:placeholder="Ex: Av. Florestal"
-														value="#{clientController.client.address.logradouro}"
-														maxlength="50" />
-												</div>
-												<div class="col-md-6">
-													<h:outputText style="font-family: 'Lato'" id="bairroLabel"
-														value="Bairro:" />
-													<h:inputText id="bairro" label="Bairro"
-														styleClass="form-control"
-														p:placeholder="Ex: Santa Carmélia"
-														value="#{clientController.client.address.bairro}"
-														maxlength="50" />
-												</div>
-												<div class="col-md-4">
-													<h:outputText style="font-family: 'Lato'"
-														id="complementoLabel" value="Complemento:" />
-													<h:inputText id="complemento" label="complemento"
-														styleClass="form-control"
-														p:placeholder="Casa, Apartamento etc."
-														value="#{clientController.client.address.complemento}"
-														maxlength="50" />
-												</div>
-												<div class="col-md-4">
-													<h:outputText style="font-family: 'Lato'" id="numeroLabel"
-														value="Numero:" />
-													<h:inputText id="number" p:type="number" p:min="1"
-														p:max="10" styleClass="form-control"
-														p:placeholder="Ex: 123"
-														value="#{clientController.client.address.numero}">
-														<f:convertNumber minFractionDigits="0" />
-													</h:inputText>
-												</div>
-												<div class="col-md-4">
-													<h:outputText style="font-family: 'Lato'" id="cepLabel"
-														value="Cep:" />
-													<h:inputText id="cep" label="Cep" styleClass="form-control"
-														value="#{clientController.client.address.cep}"
-														p:placeholder="Ex: 79115-485" maxlength="50" />
-												</div>
-												<div class="col-md-6">
-													<h:outputLabel style="font-family: 'Lato'" for="estado"
-														value="Estado:" />
-													<h:selectOneMenu id="estado" filter="true"
-														styleClass="form-control"
-														value="#{clientController.client.state}"
-														converter="#{stateConverter}" required="true"
-														requiredMessage="O campo estado é obrigatório">
-														<f:selectItem noSelectionOption="true"
-															itemLabel="Selecione um Estado" />
-														<f:selectItems value="#{clientController.states}"
-															var="state" itemValue="#{state}" itemLabel="#{state.uf}" />
-													</h:selectOneMenu>
-												</div>
-											</div>
-										</div>
-										
-										<div class="panel panel-default">
-						<div class="panel panel-heading">
-							<h:outputText id="titulo2" value="Item Pedido"
-								style="font-weight: bold;" />
-						</div>
-						<div class="panel-body">
-							<h:panelGrid id="dados3" columns="4">
-
-								<h:outputLabel for="product" value="Produto:" />
-								<h:selectOneMenu id="product" filter="true"
-									value="#{orderController.item.product}"
-									converter="#{productConverter}" required="true"
-									requiredMessage="O campo 'Produto' é obrigatório">
-									<f:selectItem noSelectionOption="true"
-										itemLabel=".:Selecione um produto:. " />
-									<f:selectItems value="#{orderController.products}"
-										var="product" itemValue="#{product}"
-										itemLabel="#{product.descricao}" />
-								</h:selectOneMenu>
-
-								<h:outputLabel for="order" value="Pedido:" />
-								<h:selectOneMenu id="order" filter="true"
-									value="#{orderController.item.order}"
-									converter="#{orderConverter}" required="true"
-									requiredMessage="O campo 'Pedido' é obrigatório">
-									<f:selectItem noSelectionOption="true"
-										itemLabel=".:Selecione um pedido:. " />
-									<f:selectItems value="#{orderController.orders}" var="order"
-										itemValue="#{order}" itemLabel="#{order.client.nome}" />
-								</h:selectOneMenu>
-
-								<h:outputLabel for="embrulho" value="Embrulho:" />
-								<h:selectOneMenu id="embrulho" filter="true"
-									value="#{orderController.item.embrulho}"
-									converter="#{packageConverter}" required="true"
-									requiredMessage="O campo 'Embrulho' é obrigatório">
-									<f:selectItem noSelectionOption="true"
-										itemLabel=".:Selecione um embrulho:. " />
-									<f:selectItems value="#{orderController.embrulhos}"
-										var="embrulho" itemValue="#{embrulho}"
-										itemLabel="#{embrulho.descricao}" />
-								</h:selectOneMenu>
-
-								<h:outputText value="Valor Produto:" />
-								<h:inputText value="#{orderController.item.valorProduto}">
-
-									<f:convertNumber minFractionDigits="2" />
-								</h:inputText>
-
-								<h:outputText value="Valor Embrulho:" />
-								<h:inputText value="#{orderController.item.valorEmbrulho}">
-
-									<f:convertNumber minFractionDigits="2" />
-								</h:inputText>
 
 
-								<h:outputLabel value="Quantidade"
-									styleClass="control-label col-sm-2" />
-
-								<h:inputText value="#{orderController.item.quantidade}"
-									styleClass="form-control" />
-
-								<h:panelGrid>
-									<h:commandButton action="#{orderController.adicionarPedido()}"
-										value="+" title="Adicionar">
-										<f:ajax render="@form" />
-									</h:commandButton>
-								</h:panelGrid>
-								<br />
-								<br />
-								<h:dataTable var="item" value="#{orderController.order.itens}"
-									class="table table-bordered table-striped">
-									<h:column>
-										<f:facet name="header">ID</f:facet>
-				#{item.getId()}
-			</h:column>
-									<h:column>
-										<f:facet name="header">Produto</f:facet>
-				#{item.product.getDescricao()}
-			</h:column>
-
-
-									<h:column>
-										<f:facet name="header">Pedido</f:facet>
-				#{item.order.client.getNome()}
-			</h:column>
-									<h:column>
-										<f:facet name="header">Valor Produto</f:facet>
-				#{item.getValorProduto()}
-			</h:column>
-									<h:column>
-										<f:facet name="header">Valor Embrulho</f:facet>
-				#{item.getValorEmbrulho()}
-			</h:column>
-									<h:column>
-										<f:facet name="header">Quantidade</f:facet>
-				#{item.getQuantidade()}
-			</h:column>
-
-									<h:column>
-										<f:facet name="header">Açao</f:facet>
-
-										<h:commandButton
-											action="#{orderController.excluirPedido(item)}" value="-"
-											titulo="Excluir">
-											<f:ajax render="@form" />
-										</h:commandButton>
-									</h:column>
-								</h:dataTable>
-
-
-
-							</h:panelGrid>
-						</div>
-					</div>
-
-
-					<div class="panel panel-default">
-						<div class="panel panel-heading">
-							<h:outputText id="titulo3" value="Pagamento"
-								style="font-weight: bold;" />
-						</div>
-
-						<div class="form-group">
-							<h:outputLabel value="Pedido" styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
-								<h:selectOneMenu id="pedido" filter="true"
-									styleClass="form-control"
-									value="#{paymentController.payment.order}"
-									converter="#{orderConverter}" required="true"
-									requiredMessage="O campo 'Pedido' é obrigatório">
-									<f:selectItem noSelectionOption="true"
-										itemLabel="Selecione um pedido" />
-									<f:selectItems value="#{paymentController.orders}" var="order"
-										itemValue="#{order}" itemLabel="#{order.client.nome}" />
-								</h:selectOneMenu>
-							</div>
-						</div>
-						<div class="form-group">
-							<h:outputLabel value="Valor pago"
-								styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
-								<h:inputText value="#{paymentController.payment.valor}"
-									styleClass="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<h:outputLabel value="Data Pagamento"
-								styleClass="control-label col-sm-2" />
-							<div class="form-group col-md-4">
-								<h:inputText p:type="date" styleClass="form-control"
-									value="#{paymentController.payment.dataPagamento}" />
-							</div>
-						</div>
-
-					</div>
-										
-									</div>
 									<div class="modal-footer">
 										<h:commandButton styleClass="btn btn-success"
-											data-dismiss="modal" action="#{clientController.save}"
+											data-dismiss="modal" action="#{userController.save}"
 											value="Salvar">
 											<f:ajax execute="formulario" render="formulario formTabela"></f:ajax>
 										</h:commandButton>
 										<h:commandButton styleClass="btn btn-danger"
-											rendered="#{clientController.modoEdicao}"
-											data-dismiss="modal" action="#{clientController.cancelar}"
-											value="Cancelar">
+											rendered="#{userController.modoEdicao}" data-dismiss="modal"
+											action="#{userController.cancelar}" value="Cancelar">
 											<f:ajax render="formulario"></f:ajax>
 										</h:commandButton>
 										<h:messages id="msg" />
@@ -414,7 +155,7 @@
 			<footer class="row">
 				<div class="col-sm-6">
 					<button class="btn btn-success" data-toggle="modal"
-						data-target="#NovaOS">Novo Cliente</button>
+						data-target="#NovaOS">Novo Usuario</button>
 				</div>
 				<div class="col-sm-6 paginacao text-right">
 					<ul class="pagination">
@@ -435,7 +176,7 @@
 							<h3 class="h3">Confirmação de exclusão</h3>
 						</div>
 						<div class="modal-body">
-							<h4 class="h4">Tem certeza que deseja remover este cliente?</h4>
+							<h4 class="h4">Tem certeza que deseja remover este usuario?</h4>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>

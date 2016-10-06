@@ -1,70 +1,187 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-
-<h:head>
-    <script src="../resources/css/bootstrap.min.css"></script>
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../resources/css/index.css"/>
-</h:head>
-<h:body>
-    <ui:composition template="template.xhtml">
-        <div class="container">
-            <ui:define name="container">
-                <h:form id="formulario">
-                    <div class="breadcrumb" align="center">
-                        <h1>Adicionar um Administrador</h1>
-                    </div>
-                    <div class="form-group form-group-lg col-lg-8">
-                        <label for="email">Nome do Perfil</label>
-                        <h:inputText value="#{userController.user.perfil}"
-                                     styleClass="form-control" id="email" p:placeholder="Digite o nome do perfil..."/>
-                    </div>
-                    <div class="form-group form-group-lg col-md-8">
-                        <label for="a">Login</label>
-                        <h:inputText value="#{userController.user.login}"
-                                     styleClass="form-control" id="a" p:placeholder="Digite o login..."/>
-                    </div>
-                    <div class="form-group form-group-lg col-md-8">
-                        <label for="b">Senha</label>
-                        <h:inputSecret value="#{userController.user.senha}"
-                                       styleClass="form-control" id="b"
-                                       p:placeholder="Digite uma senha(Dica: não use senhas de outros lugares)"/>
-                    </div>
-                    <div class="col-lg-12">
-                        <label for="c">Status(ativo/inativo)</label>
-                        <h:selectBooleanCheckbox styleClass="checkbox" id="c" value="#{userController.user.ativo}"/>
-                    </div>
-
-                    <div class="col-md-6">
-                        <br></br>
-                        <h:commandButton styleClass="btn btn-success" action="#{userController.salvar}"
-                                         value="Adicionar Administrador">
-                            <f:ajax execute="formulario" render="formulario"></f:ajax>
-                        </h:commandButton>
-                    </div>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" template="template.xhtml">
 
 
-                    <h:commandButton rendered="#{userController.modoEdicao}"
-                                     action="#{userController.cancelar}" value="Cancelar">
-                        <f:ajax render="formulario"></f:ajax>
-                    </h:commandButton>
+
+	<div class="container">
+		<ui:define name="container">
+			<div class="col-xs-12 col-md-6">
+				<h1 style="font-family: 'Lato'">Usuario</h1>
+			</div>
+			<h:form id="formTabela">
+				<h:dataTable id="tabela2" value="#{userController.users}" var="u"
+					styleClass="dados-os table table-striped table-bordered table-hover">
+					<h:column id="columnCodigo">
+						<f:facet name="header">
+							<h:outputText style="font-family: 'Lato' " id="headerCodigo"
+								value="Codigo" />
+						</f:facet>
+						<h:outputText id="valorCodigo" value="#{u.id}" />
+					</h:column>
+
+					<h:column id="columnLogin">
+						<f:facet name="header">
+							<h:outputText style="font-family: 'Lato'" id="headerLogin"
+								value="Login" />
+						</f:facet>
+						<h:outputText id="valorLogin" value="#{u.login}" />
+					</h:column>
+
+					<h:column id="columnPerfil">
+						<f:facet name="header">
+							<h:outputText style="font-family: 'Lato'" id="headerPerfil"
+								value="Perfil" />
+						</f:facet>
+						<h:outputText id="valorPerfil" value="#{u.perfil}" />
+					</h:column>
+
+					<h:column id="columnAtivo">
+						<f:facet name="header">
+							<h:outputText style="font-family: 'Lato'" id="headerAtivo"
+								value="Ativol" />
+						</f:facet>
+						<h:outputText id="valorAtivo" value="#{u.ativo}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Ação</f:facet>
+						<h:commandButton styleClass="btn btn-danger"
+							action="#{userController.remove(u)}" value="Excluir" onclick="">
+							<f:passThroughAttribute name="data-toggle" value="modal" />
+							<f:passThroughAttribute name="data-target"
+								value="#confirm-delete" />
+							<f:ajax render="formTabela:tabela2" />
+						</h:commandButton>
+
+						<h:commandButton styleClass="btn btn-primary"
+							action="#{userController.editar(u)}" value="Editar">
+							<f:ajax render="formulario formTabela" />
+							<f:passThroughAttribute name="data-toggle" value="modal" />
+							<f:passThroughAttribute name="data-target" value="#NovaOS" />
+						</h:commandButton>
+
+					</h:column>
+				</h:dataTable>
+			</h:form>
+			<div class="modal fade" id="NovaOS">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" data-dismiss="modal" class="close">
+								<span></span>
+							</button>
+							<h4 class="modal-title">Cadastrar Novo Usuario</h4>
+						</div>
+						<h:form id="formulario" style="font-family: 'Lato', Sans-Serif">
+							<div class="modal-body">
+
+								<div class="panel panel-default">
+									<div class="panel panel-heading">
+										<h:outputText id="titulo" value="Dados do Usuario"
+											style="font-family: 'Lato'" />
+									</div>
+									<div class="panel-body">
+										<div id="dados">
+											<div class="col-md-8">
+												<h:outputText style="font-family: 'Lato'" id="loginLabel"
+													value="Login:" />
+												<h:inputText id="login" label="Login"
+													styleClass="form-control"
+													value="#{userController.user.login}" p:placeholder="login"
+													maxlength="50" />
+											</div>
+
+											<div class="col-md-4">
+												<h:outputText style="font-family: 'Lato'" id="senhaLabel"
+													value="Senha:" />
+												<h:inputSecret value="#{userController.user.senha}"
+													styleClass="form-control" id="b"
+													p:placeholder="Digite uma senha(Dica: não use senhas de outros lugares)" />
+											</div>
+											
+											<div class="col-md-4">
+												<h:outputText style="font-family: 'Lato'" id="perfilLabel"
+													value="Perfil:" />
+												<h:inputText value="#{userController.user.perfil}"
+													styleClass="form-control" id="perfil"
+													p:placeholder="Digite o nome do perfil..." />
+											</div>
+											
+												<div class="col-md-4">
+												<h:outputText style="font-family: 'Lato'" id="ativoLabel"
+													value="Ativo:" />
+												 <h:selectBooleanCheckbox styleClass="checkbox" id="c" value="#{userController.user.ativo}"/>
+											</div>
+											
 
 
-                    <h:messages id="msg"/>
-                </h:form>
-                <script src="../resources/js/jquery-2.1.4.min.js"></script>
-                <script src="../resources/js/bootstrap.min.js"></script>
-                <script src="../resources/js/bootstrap-datepicker.min.js"></script>
-                <script src="../resources/js/bootstrap-datepicker.pt-BR.min.js"></script>
-                <script src="../resources/js/main.js"></script>
-                <script src="../resources/js/bootbox.min.js"></script>
-            </ui:define>
-        </div>
-    </ui:composition>
-</h:body>
-</html>
+										</div>
+									</div>
+
+
+									<div class="modal-footer">
+										<h:commandButton styleClass="btn btn-success"
+											data-dismiss="modal" action="#{userController.save}"
+											value="Salvar">
+											<f:ajax execute="formulario" render="formulario formTabela"></f:ajax>
+										</h:commandButton>
+										<h:commandButton styleClass="btn btn-danger"
+											rendered="#{userController.modoEdicao}" data-dismiss="modal"
+											action="#{userController.cancelar}" value="Cancelar">
+											<f:ajax render="formulario"></f:ajax>
+										</h:commandButton>
+										<h:messages id="msg" />
+									</div>
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+			<footer class="row">
+				<div class="col-sm-6">
+					<button class="btn btn-success" data-toggle="modal"
+						data-target="#NovaOS">Novo Usuario</button>
+				</div>
+				<div class="col-sm-6 paginacao text-right">
+					<ul class="pagination">
+						<li class="disabled"><a href=""><span>«</span></a></li>
+						<li class="active"><a href="">1</a></li>
+						<li><a href="">2</a></li>
+						<li><a href="">3</a></li>
+						<li><a href="">4</a></li>
+						<li><a href="">5</a></li>
+						<li><a href=""><span>»</span></a></li>
+					</ul>
+				</div>
+			</footer>
+			<div class="modal fade" id="confirm-delete">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="h3">Confirmação de exclusão</h3>
+						</div>
+						<div class="modal-body">
+							<h4 class="h4">Tem certeza que deseja remover este usuario?</h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+							<a class="btn btn-success btn-ok">Sim</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script>
+                $('#confirm-delete').on('show.bs.modal', function(e) {
+                    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                });
+            </script>
+		</ui:define>
+	</div>
+</ui:composition>

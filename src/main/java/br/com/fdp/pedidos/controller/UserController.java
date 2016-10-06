@@ -38,7 +38,7 @@ public class UserController {
 		users = userRepository.findAll();
 	}
 
-	public void salvar() {
+	public void save() {
 
 		userRepository.save(getUser());
 		if (!isModoEdicao())
@@ -56,7 +56,7 @@ public class UserController {
 		userRepository.findAll();
 	}
 
-	public void excluir(User user) {
+	public void remover(User user) {
 		userRepository.delete(user);
 		users.remove(user);
 		user = new User();

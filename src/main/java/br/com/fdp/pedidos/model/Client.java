@@ -35,7 +35,7 @@ public class Client {
 	private String email;
 	private String telefone;
 	private String cpf;
-	private String nomeNoivo;
+	private String nomeNoivos;
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	private State state;
