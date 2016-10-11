@@ -6,16 +6,18 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.fdp.pedidos.model.Ceremonial;
-import br.com.fdp.pedidos.model.Client;
-import br.com.fdp.pedidos.model.State;
+
 import br.com.fdp.pedidos.repository.CeremonialRepository;
-import br.com.fdp.pedidos.repository.StateRepository;
+
+import br.com.fdp.pedidos.util.MensagemUtil;
 
 @Named
 @ViewScoped
@@ -38,20 +40,36 @@ public class CeremonialController {
 	}
 
 	public void save() {
+		try{
 		ceremonialRepository.save(getCeremonial());
 		if (!isModoEdicao())
 			ceremonials.add(ceremonial);
 		ceremonial = new Ceremonial();
 		setModoEdicao(false);
+		MensagemUtil.mensagemAviso("Salvo com sucesso");
+		}catch(ServiceException e){
+			MensagemUtil.mensagemErro("Erro ao Salvar." + e.getMessage());
+		}
 	}
 	public void remove(Ceremonial ceremonial){
+		try{
 		ceremonialRepository.delete(ceremonial);
 		ceremonials.remove(ceremonial);
 		ceremonial = new Ceremonial();
+		MensagemUtil.mensagemAviso("Excluido com sucesso");
+		}catch(ServiceException e){
+			MensagemUtil.mensagemErro("Erro ao deletar." + e.getMessage());
+		}
 	}
 	public void editar(Ceremonial ceremonial){
+		try{
 		setCeremonial(ceremonial);
+		MensagemUtil.mensagemAviso("Atualizado com sucesso");
 		setModoEdicao(true);
+		
+		}catch(ServiceException e){
+			MensagemUtil.mensagemErro("Erro ao atualizar." + e.getMessage());
+		}
 		
 	}
 	public void cancelar(){

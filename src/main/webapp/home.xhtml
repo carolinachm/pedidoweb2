@@ -1,0 +1,44 @@
+<ui:composition template="/public/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="titulo">Dashboard</ui:define>
+
+	<ui:define name="container">
+		<br />Seja bem-vindo!<br />
+		<br />
+		<br />
+
+		<h:panelGrid columns="2">
+			<h:panelGroup>
+				<fieldset class="scheduler-border">
+				<legend class="scheduler-border">Pedido atual</legend>
+				<div class="control-group">
+					<label class="control-label input-label" for="startTime">Start
+						:</label>
+					<div class="controls bootstrap-timepicker">
+						
+					</div>
+				</div>
+			</fieldset>
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<fieldset class="scheduler-border">
+				<legend class="scheduler-border">Pedido futuro</legend>
+				<div class="control-group">
+					<label class="control-label input-label" for="startTime">Start
+						:</label>
+					<div class="controls bootstrap-timepicker">
+						
+					</div>
+				</div>
+			</fieldset>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</ui:define>
+
+</ui:composition>

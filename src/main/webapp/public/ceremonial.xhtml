@@ -13,7 +13,7 @@
 			<div class="col-xs-12 col-md-6">
 				<h1 style="font-family: 'Lato'">Cerimonial</h1>
 			</div>
-			<h:form id="formTabela">
+			<h:form id="formTabela" >
 				<h:dataTable id="tabela2"
 					value="#{ceremonialController.ceremonials}" var="ce"
 					styleClass="dados-os table table-striped table-bordered table-hover">
@@ -46,8 +46,8 @@
 					<h:column>
 						<f:facet name="header">Ação</f:facet>
 						<h:commandButton styleClass="btn btn-danger"
-							action="#{ceremonialController.remove(ce)}" value="Excluir"
-							onclick="">
+							action="#{ceremonialController.remove(ce)}" >
+							<i class="icon-trash" title="Excluir"></i>
 							<f:passThroughAttribute name="data-toggle" value="modal" />
 							<f:passThroughAttribute name="data-target"
 								value="#confirm-delete" />
@@ -55,7 +55,8 @@
 						</h:commandButton>
 
 						<h:commandButton styleClass="btn btn-primary"
-							action="#{ceremonialController.editar(ce)}" value="Editar">
+							action="#{ceremonialController.editar(ce)}">
+							<i class="icon-edit" title="Editar"></i>
 							<f:ajax render="formulario formTabela" />
 							<f:passThroughAttribute name="data-toggle" value="modal" />
 							<f:passThroughAttribute name="data-target" value="#NovaOS" />
@@ -73,7 +74,8 @@
 							</button>
 							<h4 class="modal-title">Cadastrar Novo Cerimonial</h4>
 						</div>
-						<h:form id="formulario" style="font-family: 'Lato', Sans-Serif">
+						<h:form id="formulario" style="font-family: 'Lato', Sans-Serif" >
+						
 							<div class="modal-body">
 
 								<div class="panel panel-default">
@@ -89,19 +91,22 @@
 												<h:inputText id="nome" label="Nome"
 													styleClass="form-control"
 													value="#{ceremonialController.ceremonial.nome}"
+													required="true"
+													requiredMessage="O campo nome é obrigatorio"
 													p:placeholder="Ex: Jão" maxlength="50" />
 											</div>
-
+											
 											<div class="col-md-4">
 												<h:outputText style="font-family: 'Lato'" id="telefoneLabel"
 													value="Telefone:" />
 												<h:inputText id="telefone" label="Telefone"
-													styleClass="form-control" p:placeholder="(DDD)91234-5678"
+													styleClass="form-control" p:placeholder="(99)9999-9999"
+													required="true"
+													requiredMessage="O campo telefone é obrigatorio"
 													value="#{ceremonialController.ceremonial.telefone}"
 													maxlength="50" />
 											</div>
-
-
+										
 										</div>
 									</div>
 

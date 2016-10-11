@@ -19,12 +19,12 @@ public class LoginController {
 		    if(user.equals(user.getLogin()) &&
 		       user.equals(user.getSenha())) {
 		      /* Se escrever o login e senha correto então vai para a tela principal do sistema. */
-		      return "index";
+		      return "home";
 		    } else {
 		        /* Cria uma mensagem. */
 		        FacesMessage msg = new FacesMessage("Usuário ou senha inválido!");
 		        /* Obtém a instancia atual do FacesContext e adiciona a mensagem de erro nele. */
-		        FacesContext.getCurrentInstance().addMessage("erro", msg);
+		        FacesContext.getCurrentInstance().addMessage("error", msg);
 		        return null;
 		    }
 		  }
