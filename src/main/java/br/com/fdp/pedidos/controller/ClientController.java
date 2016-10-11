@@ -73,7 +73,7 @@ public class ClientController {
 		MensagemUtil.mensagemAviso("Atualizado com sucesso");
 		}catch(ServiceException e){
 			e.printStackTrace();
-			MensagemUtil.mensagemErro("Erro ao excluir." + e.getMessage());
+			MensagemUtil.mensagemErro("Erro ao alterar." + e.getMessage());
 		}
 	}
 	public void cancelar(){
